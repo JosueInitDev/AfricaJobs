@@ -58,12 +58,13 @@ include('assets/includes/constants.php');
         else
         {
             $cl_nom = $nom_site;
-            $cl_id = 0;
+            $cl_id = 1;
         }
         //-----------//permet de reconnaitre le client--------------
         ?>
 	</head>
-	<body onload="pageLoading()">
+	<body>
+<!--	<body onload="pageLoading()">-->
 		<?php
 		include('assets/includes/identifiants.php');
 		include('assets/includes/functions.php');
@@ -94,13 +95,47 @@ include('assets/includes/constants.php');
 							  $clphoto->execute();
 							  $clphoto=$clphoto->fetch();
 							  $clphoto=$clphoto['cl_photo'];
-							  echo '<img src="assets/images/clients/'.$clphoto.'" class="img-fluid" title="Accéder à mon compte">';
+							  echo '<img src="assets/images/clients/'.$clphoto.'" class="img-fluid rounded-circle" title="Accéder à mon compte">';
 							  ?>
 							</a>
 						  <?php } ?>
 					  </li>
+					  <li class="dropdown-menu2"><!----notifications------->
+						  <?php
+						  $notifs=$db->prepare('SELECT COUNT(*) FROM views WHERE vw_element="profile (cv)" AND vw_elt_id=:id AND vw_active=1');
+						  $notifs->bindValue(':id', $cl_id, PDO::PARAM_INT);
+						  $notifs->execute();
+						  $nbr=$notifs->fetchcolumn();
+						  $notifs=$db->prepare('SELECT COUNT(*) FROM views INNER jOIN jobs ON views.vw_elt_id=jobs.jb_id WHERE views.vw_element="offre d\'emploi" AND jobs.cl_id=:id AND vw_active=1');
+						  $notifs->bindValue(':id', $cl_id, PDO::PARAM_INT);
+						  $notifs->execute();
+						  $nbr2=$notifs->fetchcolumn();
+						  
+						  if ($nbr+$nbr2<=0){ //0 notif
+							  	?><button class="menu-btn"><span class="fa fa-bell-slash"></span></button>
+								<div class="menu-content">
+									<i>Aucune notification</i>
+								</div>
+						  		<?php
+						  }else{
+						  		?><button class="menu-btn"><span class="fa fa-bell"><?php echo $nbr+$nbr2 ?></span></button>
+								<div class="menu-content">
+									<?php
+									$j=1;
+									if ($nbr>0){
+										echo '<b>'.$j.'</b> '; ?><a href="#" style="color:#000">Profile (CV) consulté (<?php echo $nbr ?> fois)</a><hr><?php
+										$j++;
+									}
+									if ($nbr2>0){
+										echo '<b>'.$j.'</b> '; ?><a href="#" style="color:#000">Offre d'emploi consultée (<?php echo $nbr2 ?> fois)</a><hr><?php
+										$j++;
+									} ?>
+								</div>
+						  		<?php
+						  } ?>
+					  </li><!----//notifications------->
 					  <li class="transmitvcart galssescart2 cart cart box_1">
-						  <a href="jobs.php?type=work">
+						  <a href="jobs.php#work">
 						  <button class="top_transmitv_cart" type="submit" name="submit" value="">
 								Travailler
 							  	<span class="fa fa-suitcase"></span>
@@ -108,7 +143,7 @@ include('assets/includes/constants.php');
 						  </a>
 					  </li>
 					  <li class="transmitvcart galssescart2 cart cart box_1">
-						  <a href="jobs.php?type=hire">
+						  <a href="jobs.php#hire">
 						  <button class="top_transmitv_cart" type="submit" name="submit" value="">
 								Embaucher
 							  	<span class="fa fa-building"></span>
@@ -194,19 +229,35 @@ include('assets/includes/constants.php');
 						  <a class="nav-link" href="index.php">Accueil</a>
 						</li>
 						<li class="nav-item active">
-						  <a class="nav-link" href="jobs.php">Jobs</a>
+						  <a class="nav-link" href="jobs.php" title="Voir les jobs et employés">Jobs</a>
 						</li>
 						<li class="nav-item">
-						  <a class="nav-link" href="jobs.php?type=work">Travailler</a>
+						  <a class="nav-link" href="jobs.php#work" title="Trouver un job">Travailler</a>
 						</li>
 						<li class="nav-item active">
-						  <a class="nav-link" href="jobs.php?type=hire">Embaucher</a>
+						  <a class="nav-link" href="go-premium.php" title="Embaucher quelqu'un">Premium</a>
 						</li>
 						<li class="nav-item">
-						  <a class="nav-link" href="about.php">A Propos</a>
+						  <a class="nav-link" href="add-job.php" title="Ajouter un job"><span class="fa fa-plus"></span> Ajouter Job</a>
 						</li>
 						<li class="nav-item active">
-						  <a class="nav-link" href="contact.php">Contact</a>
+						  <a class="nav-link" href="faq.php" title="Avez-vous une question ?">FAQ</a>
+						</li>
+						<li class="nav-item dropdown dropleft">
+						  <a class="nav-link dropdown-toggle" href="#" id="plus" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Plus d'infos"><span class="fa fa-plus"></span></a>
+						  <div class="dropdown-menu" aria-labelledby="plus">
+							<div class="dropdown-header">Divers</div>
+							<a class="dropdown-item" href="about.php">A Propos</a>
+							<a class="dropdown-item" href="contact.php">Contact</a>
+								<div class="dropdown-divider"></div>
+							<div class="dropdown-header">Trouver un job</div>
+							<a class="dropdown-item" href="#">Job sans diplôme</a>
+							<a class="dropdown-item" href="#">Job avec diplôme</a>
+								<div class="dropdown-divider"></div>
+							<div class="dropdown-header">Trouver un employé</div>
+							<a class="dropdown-item" href="#">Employé non diplômé</a>
+							<a class="dropdown-item" href="#">Employé diplômé</a>
+						  </div>
 						</li>
 					  </ul>
 

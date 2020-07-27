@@ -7,6 +7,31 @@ First version date : 2020-07-21
 Version: 1.0  -  date: 2020-07-21
 */
 
+
+@media (min-width: 960px){
+	.jobsButtons{
+		position: sticky;
+		top: 0px;
+		text-align: center;
+		background-image: linear-gradient(silver 20%, rgba(255,255,255,0.1));
+		padding-left: 7px;
+		padding-right: 7px;
+		padding-bottom: 35px;
+		z-index:990;
+	}
+}
+@media (max-width: 960px){
+	.jobsButtons{
+		position: relative;
+		text-align: center;
+		background-image: linear-gradient(silver 20%, rgba(255,255,255,0.1));
+		padding-left: 7px;
+		padding-right: 7px;
+		padding-bottom: 35px;
+		z-index:990;
+	}
+}
+	
 .card-icon:hover {
 	filter: grayscale(50%);
 }
@@ -3441,7 +3466,7 @@ a.read-more-btn2.btn:hover {
 }
 
 .w3l-banner-slider-main .overlay-login button.overlay-close1 {
-  z-index: 9999;
+  z-index: 99999;
   color: #fff;
 }
 
@@ -6533,7 +6558,9 @@ iframe {
 }
 
 .w3l-ecommerce-main .product-grid2:hover .product-image2 .pic-2 {
-  opacity: 1;
+	opacity: 1;
+	-webkit-transform: scaleX(-1);
+	transform: scaleX(-1);
 }
 
 .w3l-ecommerce-main .product-grid2 .social {
@@ -7274,7 +7301,7 @@ iframe {
 }
 
 .w3l-banner-slider-main.inner-pagehny .breadcrumb-infhny {
-  background: url(../images/bg1.jpg) no-repeat center;
+  background: url(../images/bg.jpg) no-repeat center;
   background-size: cover;
   -webkit-background-size: cover;
   -o-background-size: cover;

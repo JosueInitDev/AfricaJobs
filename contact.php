@@ -70,7 +70,7 @@ if (isset($_GET['return'])){
 			<div class="hours">
 			  <h3 class="hny-title">Bésoin <span>d'aide ?</span></h3>
 			  <h6 style="text-decoration:underline">F.A.Q</h6>
-			  <p>Consultez notre Foir Aux Questions pour avoir des réponses à vos questions. Tout ce que vous voudrez savoir ...</p>
+			  <p>Consultez notre Foir Aux Questions pour avoir des réponses à vos questions. Tout ce que vous voudrez savoir ... <span class="fa fa-hand-o-right"></span> <a href="faq.php"><b>c'est par ici</b></a></p>
 			  <h6 class="margin-top" style="text-decoration:underline">Ce qu'ils disent à notre sujet</h6>
 			  <a href="index.php#customers"><span class="fa fa-hand-o-right hand-icon"></span> Consultez les avis des clients ici</a>
 			</div>

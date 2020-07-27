@@ -13,8 +13,8 @@
 				<div class="carousel-item active">
 					<div class="container">
 						<div class="carousel-caption">
-							<h3>Aucun diplôme ?
-								<br>aucun problème</h3>
+							<h3 class="d-none d-md-block">Aucun diplôme ?<br>aucun problème</h3>
+							<h3 class="d-md-none" style="font-size:20px">Aucun diplôme ?<br>aucun problème</h3>
 							<a href="jobs.php?type=work&categorie=sans-diplome" class="shop-button btn">
 								Trouver un job sans diplôme <span class="fa fa-car"></span><span class="fas fa-running"></span>
 							</a>
@@ -24,8 +24,8 @@
 				<div class="carousel-item item2">
 					<div class="container">
 						<div class="carousel-caption">
-							<h3>Avez-vous un diplôme ?
-								<br>c'est par ici</h3>
+							<h3 class="d-none d-md-block">Avez-vous un diplôme ?<br>c'est par ici</h3>
+							<h3 class="d-md-none" style="font-size:20px">Avez-vous un diplôme ?<br>c'est par ici</h3>
 							<a href="jobs.php?type=work&categorie=avec-diplome" class="shop-button btn">
 								Jobs avec diplôme <span class="fa fa-graduation-cap"></span><span class="fas fa-running"></span>
 							</a>
@@ -35,8 +35,8 @@
 				<div class="carousel-item item3">
 					<div class="container">
 						<div class="carousel-caption">
-							<h3>Plus tôt employeur ?
-								<br>Embauchez quelqu'un</h3>
+							<h3 class="d-none d-md-block">Plus tôt employeur ?<br>Embauchez quelqu'un</h3>
+							<h3 class="d-md-none" style="font-size:20px">Plus tôt employeur ?<br>Embauchez quelqu'un</h3>
 							<a href="jobs.php?type=hire" class="shop-button btn">
 								Embaucher maintenant <span class="fas fa-running"></span>
 							</a>
@@ -46,8 +46,8 @@
 				<div class="carousel-item item4">
 					<div class="container">
 						<div class="carousel-caption">
-							<h3>Voir jobs disponilbes
-								<br>Ou les occasions d'embauche</h3>
+							<h3 class="d-none d-md-block">Voir jobs disponilbes<br>Ou les occasions d'embauche</h3>
+							<h3 class="d-md-none" style="font-size:20px">Voir jobs disponilbes<br>Ou les occasions d'embauche</h3>
 							<a href="#" class="shop-button btn">
 								Voir maintenant <span class="fas fa-running"></span>
 							</a>
@@ -123,7 +123,7 @@ if ($nbr>0){
 			<script>
 				window.setInterval(function(){
 					loadDoc();
-				}, 5000);
+				}, 3000);
 				function loadDoc() {
 				  var xhttp = new XMLHttpRequest();
 				  xhttp.onreadystatechange = function() {
@@ -154,7 +154,7 @@ if ($nbr>0){
 			<script>
 				window.setInterval(function(){
 					loadDoc2();
-				}, 5500);
+				}, 3500);
 				function loadDoc2() {
 				  var xhttp = new XMLHttpRequest();
 				  xhttp.onreadystatechange = function() {
@@ -214,7 +214,7 @@ if ($nbr>0){
 			<script>
 				window.setInterval(function(){
 					loadDoc3();
-				}, 5200);
+				}, 3200);
 				function loadDoc3() {
 				  var xhttp = new XMLHttpRequest();
 				  xhttp.onreadystatechange = function() {
@@ -234,7 +234,7 @@ if ($nbr>0){
 <?php } ?>
 <!-- //embaucher -->
 
-<!-- //inscription-->
+<!-- inscription-->
 <section class="w3l-subscription-6">
 	<div class="subscription-infhny">
 		<div class="container-fluid">
@@ -288,7 +288,7 @@ if ($nbr>0){
 							<div class="carousel-item active">
 								<div class="row">
 									<?php for ($i=0; $i<4; $i++){ ?>
-									<div class="col-md-3">
+									<div class="col-6 col-md-3">
 										<div class="customer-info text-center">
 											<div class="feedback-hny" style="height:300px">
 												<span class="fa fa-quote-left"></span>
@@ -320,7 +320,7 @@ if ($nbr>0){
 							<div class="carousel-item">
 								<div class="row">
 									<?php for ($i=4; $i<$nbr; $i++){ ?>
-									<div class="col-md-3">
+									<div class="col-6 col-md-3">
 										<div class="customer-info text-center">
 											<div class="feedback-hny" style="height:300px">
 												<span class="fa fa-quote-left"></span>

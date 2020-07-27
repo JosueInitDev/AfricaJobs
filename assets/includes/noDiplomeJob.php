@@ -3,7 +3,8 @@ include('identifiants.php');
 $query=$db->prepare('SELECT COUNT(*) FROM jobs WHERE jb_type="sans_diplome"');
 $query->execute();
 $max=$query->fetchcolumn();
-$a=random_int(0,$max-5);
+if ($max>5) $a=random_int(0,$max-5);
+else $a=0;
 //echo $max;
 //echo $a;
 $query=$db->prepare('SELECT jb_id, jb_photo, jb_titre FROM jobs WHERE jb_type="sans_diplome" ORDER BY jb_id DESC LIMIT :min, 5');
@@ -27,8 +28,8 @@ while ($data=$query->fetch()){
 $query->closeCursor();
 ?>
 <div class="col-lg-2 col-md-4 col-4 welcome-image">
-	<div>
-		<a href="job-infos.php?type=sans-diplome">
+	<div style="width:160px">
+		<a href="jobs.php?type=work&categorie=sans-diplome">
 			<img src="assets/images/button-cercle.jpg" class="img-fluid rounded-circle" alt="Jobs sans dilpôme" />
 		</a>
 	</div>

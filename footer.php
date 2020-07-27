@@ -40,7 +40,7 @@ switch($query){
                                     <a class="navbar-brand" href="#index.html">
                                         <img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
                                     </a> -->
-                      <p style="text-align:justify">Permettre à tout le monde d'avoir du travail ou de trouver un employé facilement, nous offrons un panel d'offre d'emplois et d'employés. En partant par les jobs ne nécessitant aucun diplôme jusqu'à ceux qui en nécessitent.</p>
+                      <p style="text-align:justify">Permettre à tout le monde d'avoir du travail ou de trouver un employé facilement, nous offrons un panel d'offre d'emplois et d'employés. En partant des jobs ne nécessitant aucun diplôme jusqu'à ceux qui nécessitent le plus gros diplôme.</p>
                       <ul class="social-footerhny mt-lg-5 mt-4">
 
                           <li><a class="facebook" href="<?php echo $facebook_site ?>" target="_blank"><span class="fa fa-facebook" aria-hidden="true"></span></a>
@@ -55,7 +55,8 @@ switch($query){
                   </div>
 
                   <div class="right-side col-lg-8 pl-lg-5">
-                      <h4 style="font-size:25px">JE TRAVAIL MAINTENANT OU J'EMBAUCHE</h4>
+                      <h4 class="d-none d-md-block" style="font-size:25px">JE TRAVAIL MAINTENANT OU J'EMBAUCHE</h4>
+                      <h4 class="d-md-none" style="font-size:15px">JE TRAVAIL MAINTENANT OU J'EMBAUCHE</h4>
                       <div class="sub-columns">
                           <div class="sub-one-left">
                               <h6>Liens Rapides</h6>
@@ -77,7 +78,7 @@ switch($query){
                           </div>
                           <div class="sub-two-right">
                               <h6>Premium</h6>
-                              <p class="mb-5">Mettre votre enreprise ou votre CV au devant de tous ? Passez premium sans plus tarder !
+                              <p class="mb-5">Mettre votre enreprise ou votre CV au devant de tous ? Passez premium sans plus tarder ! Moins cher mais éfficace ! <span class="fa fa-thumbs-up"></span>
 								  <a href="go-premium.php"><button type="button" class="btn btn-warning" style="border-radius:15px"><span class="fa fa-star"></span> <span class="fas fa-running"></span>Go Premium <span class="fa fa-star"></span></button></a></p>
                               <h6>Nous acceptons :</h6>
                               <ul>
@@ -91,6 +92,16 @@ switch($query){
                                   </li>
                                   <li><a class="pay-method" href="go-premium.php"><img src="assets/images/icon-mtn-money.jpg" class="card-icon img-fluid" style="height:25px; filter:grayscale(100%)"></a>
                                   </li>
+                                  <li><a class="pay-method" href="go-premium.php"><img src="assets/images/icon-moov-money.jpg" class="card-icon img-fluid" style="height:25px; filter:grayscale(100%)"></a>
+                                  </li>
+                                  <li><a class="pay-method" href="go-premium.php"><img src="assets/images/icon-payeer.png" class="card-icon img-fluid" style="height:25px; filter:grayscale(100%)"></a>
+                                  </li>
+                                  <li><a class="pay-method" href="go-premium.php"><img src="assets/images/icon-perfect-money.png" class="card-icon img-fluid" style="height:25px; filter:grayscale(100%)"></a>
+                                  </li>
+                                  <li><a class="pay-method" href="go-premium.php"><img src="assets/images/icon-skrill.jpg" class="card-icon img-fluid" style="height:25px; filter:grayscale(100%)"></a>
+                                  </li>
+                                  <li><a class="pay-method" href="go-premium.php"><img src="assets/images/icon-umob.png" class="card-icon img-fluid" style="height:25px; filter:grayscale(100%)"></a>
+                                  </li>
                               </ul>
                           </div>
                       </div>
@@ -99,9 +110,9 @@ switch($query){
               <div class="below-section row">
                   <div class="columns col-lg-6">
                       <ul class="jst-link">
-                          <li><a href="about.php">Confidentialité</a></li>
-                          <li><a href="about.php">Termes du contrat</a></li>
-                          <li><a href="contact.php">Support</a></li>
+                          <li><a href="about.php#confidentialite">Confidentialité</a></li>
+                          <li><a href="about.php#termes-conditions">Termes du contrat</a></li>
+                          <li><a href="faq.php">Support</a></li>
                       </ul>
                   </div>
                   <div class="columns col-lg-6 text-lg-right">
@@ -116,12 +127,22 @@ switch($query){
       </div>
       <!-- //titels-5 -->
 	  <div class="spinner-grow" id="loadingPage" style="position:fixed; top:15px; right:15px; width:60px; height:60px; color:orange; z-index:999;"></div>
+	  <!------ show until page finish loading ----------->
 	  <script>
-		  function pageLoading(){
-			  document.getElementById('loadingPage').style.display="none";
-		  }
+		  document.onreadystatechange = function() { 
+				if (document.readyState !== "complete") { 
+					//document.querySelector("body").style.visibility = "hidden"; 
+					document.getElementById('loadingPage').style.display = "block"; 
+				} else { 
+					document.getElementById('loadingPage').style.display = "none"; 
+					//document.querySelector("body").style.visibility = "visible"; 
+				} 
+			};
+		  /*function pageLoading(){
+			  //document.getElementById('loadingPage').style.display="none";
+		  }*/
 	  </script>
-	  
+	  <!------ //show until page finish loading ----------->
       <!-- move top -->
       <script>
           // When the user scrolls down 20px from the top of the document, show the button
@@ -196,7 +217,220 @@ switch($query){
 	  .sidenav {padding-top: 15px;}
 	  .sidenav a {font-size: 18px;}
 }
+.btnBlack{
+	background: #000;
+	border-radius: 25px;
+	color: #fff;
+	font-family: 'Roboto';
+	transition: transform .2s;
+}
+.btnBlack:hover{
+	background: darkorange;
+	color: #000;
+	transform: skewY(2deg);
+}
+.btnOrange{
+	background: darkorange;
+	border-radius: 25px;
+	color: #000;
+	font-family: 'Roboto';
+	transition: transform .2s;
+}
+.btnOrange:hover{
+	background: #000;
+	color: #fff;
+	transform: skewY(2deg);
+}
+.bounce {
+    -webkit-animation: bounce 2s infinite;
+    animation: bounce 2s infinite;
+}
+@-webkit-keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    -webkit-transform: translateX(0); }
+  40% {
+    -webkit-transform: translateX(-30px); }
+  60% {
+    -webkit-transform: translateX(-15px); }
+}
+@-moz-keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    -moz-transform: translateX(0); }
+  40% {
+    -moz-transform: translateX(-30px); }
+  60% {
+    -moz-transform: translateX(-15px); }
+}
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0); }
+  40% {
+    -webkit-transform: translateX(-30px);
+    -moz-transform: translateX(-30px);
+    -ms-transform: translateX(-30px);
+    -o-transform: translateX(-30px);
+    transform: translateX(-30px); }
+  60% {
+    -webkit-transform: translateX(-15px);
+    -moz-transform: translateX(-15px);
+    -ms-transform: translateX(-15px);
+    -o-transform: translateX(-15px);
+    transform: translateX(-15px); }
+}
+/*----belt dropdown notification----*/
+.menu-btn {
+	color: white;
+	font-size: 20px;
+	background: none;
+	border: none;
+}
+.dropdown-menu2 {
+	position: relative;
+	display: inline-block;
+}
+.menu-content {
+	display: none;
+	position: absolute;
+	background-color: #fff;
+	min-width: 200px;
+	border-radius: 4px;
+	padding: 15px;
+	color: #000;
+	z-index: 1;
+}
+.dropdown-menu2:hover .menu-btn {
+	color: orange;
+}
+/*----//belt dropdown notification-----*/
+	
+/*-----princing-------*/
+.pricingTable{
+    font-family: 'Lato', sans-serif;
+    text-align: center;
+    margin: 0 10px;
+    border-radius: 40px 40px 170px 170px / 40px 40px 70px 70px;
+    overflow: hidden;
+    transition: all 0.3s ease 0s;
+}
+.pricingTable:hover{ box-shadow: 0 0 20px -5px rgba(0,0,0, 0.9); }
+.pricingTable .pricingTable-header{
+    background: #e7e8ea;
+    padding: 25px 0 0;
+}
+.pricingTable .price-value{
+    color: #86878B;
+    font-weight: 900;
+    margin: 0 0 15px;
+}
+.pricingTable .price-value .amount{
+    font-size: 45px;
+    line-height: 40px;
+    display: block;
+}
+.pricingTable .price-value .duration{
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: block;
+}
+.pricingTable .title{
+    color: #fff;
+    background: #f76b0e;
+    font-size: 33px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 18px 10px 15px;
+    margin: 0 -8px;
+    border: 8px solid #fff;
+    border-bottom: none;
+    border-radius: 170px 170px 0 0 / 70px 70px 0 0;
+}
+.pricingTable .content-list{
+    background: #E7E8EA;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+.pricingTable .content-list li{
+    color: #86878B;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 12px 5px;
+}
+.pricingTable .content-list li:nth-child(even){ background: #D1D2D4; }
+.pricingTable .content-list li:last-child{ margin-bottom: 0; }
+.pricingTable .pricingTable-signup{
+    background: #f76b0e;
+    padding: 17px 20px 23px;
+}
+.pricingTable .pricingTable-signup a{
+    color: #fff;
+    font-size: 27px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.3s ease 0s;
+}
+.pricingTable .pricingTable-signup a:hover{
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+.pricingTable.blue .title,
+.pricingTable.blue .pricingTable-signup{
+    background: #3867d6;
+}
+.pricingTable.black .title,
+.pricingTable.black .pricingTable-signup{
+    background: #000000;
+}
+.pricingTable.green .title,
+.pricingTable.green .pricingTable-signup{
+    background: #0fb9b1;
+}
+@media only screen and (max-width: 990px){
+    .pricingTable{ margin-bottom: 30px; }
+}
+/*-----//princing-------*/
+	
+/*---------- scrollbar ------------*/
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 20px;
+}
+::-webkit-scrollbar-thumb {
+  background: darkorange; 
+  border-radius: 20px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: orange; 
+}
+/*---------- //scrollbar ------------*/
 </style>
+
+<!----belt dropdown notification----->
+<script>
+let dropdownBtn = document.querySelector('.menu-btn');
+let menuContent = document.querySelector('.menu-content');
+dropdownBtn.addEventListener('click',()=>{
+   if(menuContent.style.display===""){
+      menuContent.style.display="block";
+   } else {
+      menuContent.style.display="";
+   }
+})
+</script>
+<!----//belt dropdown notification----->
+
 <script>
 	function openNav() {
 		document.getElementById("mySidenav").style.width = "250px";

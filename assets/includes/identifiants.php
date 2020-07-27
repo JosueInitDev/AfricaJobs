@@ -1,13 +1,14 @@
 <?php
-//connexion à la bdd en ligne
+//connexion à la bdd
 //try
 //{
-//	$db=new PDO ('mysql:host=localhost; dbname=inconsul_inconsultcase', 'inconsul', '4h42yHk.N*OF6b', array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+//	$db=new PDO ('mysql:host=164.132.170.24; dbname=occazene_test', 'occazene', '2Yi4Gz(r4T7M*g', array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
 //}
 //catch (Exception $e)
 //{
 //	die('Erreur : ' . $e->getMessage());
 //}
+
 
 //connexion à la bdd en local
 try
