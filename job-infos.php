@@ -219,7 +219,7 @@
 										?>
 									</div>
 									<div class="col-6">
-										<label for="desc">Votre description</label> :: <label id="remain">255 caractères restants</label>
+										<label for="desc">Votre description</label> :: <label id="remain">245 caractères restants</label>
 										<textarea class="form-control" id="desc" maxlength="245" name="desc" onkeyup="counter()"><?php echo $data2['cl_niveau'] ?></textarea>
 									</div>
 									<div class="col-12">
@@ -335,7 +335,7 @@
 						$i++;
 					}
 					if (strlen($desc)>255){
-						erreur("Description trop longue, max : 255 caractères.<br><a href='".$_SERVER['HTTP_REFERER']."'><button class='btn btnOrange'>Réprendre</button></a>");
+						erreur("Description trop longue, max : 245 caractères.<br><a href='".$_SERVER['HTTP_REFERER']."'><button class='btn btnOrange'>Réprendre</button></a>");
 						$i++;
 					}else{
 						$desc=nl2br($desc);

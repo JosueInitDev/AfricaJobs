@@ -46,11 +46,13 @@
 				$query->closeCursor();
 				?>
 				<div class="col-lg-2 col-md-4 col-4 product-incfhny mt-4">
+					<center>
 					<div style="width:160px">
 						<a href="jobs.php?type=hire&categorie=sans-diplome">
 							<img src="assets/images/button-cercle.jpg" class="img-fluid rounded-circle" alt="Jobs sans dilpôme" />
 						</a>
 					</div>
+					</center>
 				</div>
 			</div>
 			<hr>
@@ -98,11 +100,13 @@
 				$query->closeCursor();
 				?>
 				<div class="col-lg-2 col-md-4 col-4 product-incfhny mt-4">
+					<center>
 					<div style="width:160px">
 						<a href="jobs.php?type=hire&categorie=avec-diplome">
 							<img src="assets/images/button-cercle.jpg" class="img-fluid rounded-circle" alt="Jobs sans dilpôme" />
 						</a>
 					</div>
+					</center>
 				</div>
 			</div>
 		</div>

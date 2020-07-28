@@ -6,9 +6,6 @@ License URL: http://mailto:jose.init.dev@gmail.com
 First version date : 2020-07-21
 Version: 1.0  -  date: 2020-07-21
 -->
-<?php
-include('assets/includes/constants.php');
-?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -33,6 +30,13 @@ include('assets/includes/constants.php');
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="keywords" content="<?php echo $nom_site ?>, trouver job en côte d'ivoire, chercher travail ci, devenir taximan en ci, devenir couturier en ci, comment travail sans diplôme en côte d'ivoire, travail sans diplôme en ci, travail avec diplôme en ci, embaucher pour son entreprise, vendeur de garba en ci, job ci, emploi ci, côte d'ivoire jobs, recherche d'emploi, abidjan jobs, offres d'emploi en côte d'ivoire, emplois, recrutement côte d'ivoire, jobs de vacance en côte d'ivoire" />
 		<!-- //metas -->
+		<!--------croppie image----------->
+		<meta name="csrf-token" content="{{ csrf_token() }}">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.js"></script>
+		<!--------//croppie image----------->
 		<!-- links -->
 		<link rel="stylesheet" href="assets/css/style2.css">
 		<link rel="shortcut icon" type="image/x-icon" href="assets/images/icon-site.png" type="text/css" media="all" />
@@ -81,8 +85,9 @@ include('assets/includes/constants.php');
 					</div>
 					<!--//left-->
 					<!--right-->
-					<ul class="top-hnt-right-content col-lg-6">
-					  <li class="button-log usernhy">
+					<!--icons top only screen md, lg and xl-->
+					<ul class="list-inline d-none d-md-block" style="position:absolute; right:10px; top:inherit;">
+					  <li class="list-inline-item button-log usernhy">
 						  <?php if ($cl_id<=0){ ?>
 							<a class="btn-open" href="#" >
 							  <span class="fa fa-user" aria-hidden="true" title="Connectez-vous à votre compte"></span>
@@ -95,12 +100,12 @@ include('assets/includes/constants.php');
 							  $clphoto->execute();
 							  $clphoto=$clphoto->fetch();
 							  $clphoto=$clphoto['cl_photo'];
-							  echo '<img src="assets/images/clients/'.$clphoto.'" class="img-fluid rounded-circle" title="Accéder à mon compte">';
+							  echo '<img src="assets/images/clients/'.$clphoto.'" class="img-fluid rounded-circle" title="Accéder à mon compte" style="width:30px">';
 							  ?>
 							</a>
 						  <?php } ?>
 					  </li>
-					  <li class="dropdown-menu2"><!----notifications------->
+					  <li class="list-inline-item dropdown-menu2"><!----notifications------->
 						  <?php
 						  $notifs=$db->prepare('SELECT COUNT(*) FROM views WHERE vw_element="profile (cv)" AND vw_elt_id=:id AND vw_active=1');
 						  $notifs->bindValue(':id', $cl_id, PDO::PARAM_INT);
@@ -134,7 +139,7 @@ include('assets/includes/constants.php');
 						  		<?php
 						  } ?>
 					  </li><!----//notifications------->
-					  <li class="transmitvcart galssescart2 cart cart box_1">
+					  <li class="list-inline-item transmitvcart galssescart2 cart cart box_1">
 						  <a href="jobs.php#work">
 						  <button class="top_transmitv_cart" type="submit" name="submit" value="">
 								Travailler
@@ -142,7 +147,7 @@ include('assets/includes/constants.php');
 						  </button>
 						  </a>
 					  </li>
-					  <li class="transmitvcart galssescart2 cart cart box_1">
+					  <li class="list-inline-item transmitvcart galssescart2 cart cart box_1">
 						  <a href="jobs.php#hire">
 						  <button class="top_transmitv_cart" type="submit" name="submit" value="">
 								Embaucher
@@ -151,6 +156,79 @@ include('assets/includes/constants.php');
 						  </a>
 					  </li>
 					</ul>
+					<!--//icons top only screen md, lg and xl-->
+					<!--icons top only pour phone and tablettes-->
+					<ul class="list-inline d-md-none">
+					  <li class="list-inline-item button-log usernhy">
+						  <?php if ($cl_id<=0){ ?>
+							<a class="btn-open" href="#" >
+							  <span class="fa fa-user" aria-hidden="true" title="Connectez-vous à votre compte"></span>
+							</a>
+						  <?php }else{ ?>
+							<a href="compte.php">
+							  <?php
+							  $clphoto=$db->prepare('SELECT cl_photo FROM clients WHERE cl_id=:id');
+							  $clphoto->bindValue(':id', $cl_id, PDO::PARAM_INT);
+							  $clphoto->execute();
+							  $clphoto=$clphoto->fetch();
+							  $clphoto=$clphoto['cl_photo'];
+							  echo '<img src="assets/images/clients/'.$clphoto.'" class="img-fluid rounded-circle" title="Accéder à mon compte" style="width:30px">';
+							  ?>
+							</a>
+						  <?php } ?>
+					  </li>
+					  <li class="list-inline-item dropdown-menu2"><!----notifications------->
+						  <?php
+						  $notifs=$db->prepare('SELECT COUNT(*) FROM views WHERE vw_element="profile (cv)" AND vw_elt_id=:id AND vw_active=1');
+						  $notifs->bindValue(':id', $cl_id, PDO::PARAM_INT);
+						  $notifs->execute();
+						  $nbr=$notifs->fetchcolumn();
+						  $notifs=$db->prepare('SELECT COUNT(*) FROM views INNER jOIN jobs ON views.vw_elt_id=jobs.jb_id WHERE views.vw_element="offre d\'emploi" AND jobs.cl_id=:id AND vw_active=1');
+						  $notifs->bindValue(':id', $cl_id, PDO::PARAM_INT);
+						  $notifs->execute();
+						  $nbr2=$notifs->fetchcolumn();
+						  
+						  if ($nbr+$nbr2<=0){ //0 notif
+							  	?><button class="menu-btn"><span class="fa fa-bell-slash"></span></button>
+								<div class="menu-content">
+									<i>Aucune notification</i>
+								</div>
+						  		<?php
+						  }else{
+						  		?><button class="menu-btn"><span class="fa fa-bell"><?php echo $nbr+$nbr2 ?></span></button>
+								<div class="menu-content">
+									<?php
+									$j=1;
+									if ($nbr>0){
+										echo '<b>'.$j.'</b> '; ?><a href="#" style="color:#000">Profile (CV) consulté (<?php echo $nbr ?> fois)</a><hr><?php
+										$j++;
+									}
+									if ($nbr2>0){
+										echo '<b>'.$j.'</b> '; ?><a href="#" style="color:#000">Offre d'emploi consultée (<?php echo $nbr2 ?> fois)</a><hr><?php
+										$j++;
+									} ?>
+								</div>
+						  		<?php
+						  } ?>
+					  </li><!----//notifications------->
+					  <li class="list-inline-item transmitvcart galssescart2 cart cart box_1">
+						  <a href="jobs.php#work">
+						  <button class="top_transmitv_cart" type="submit" name="submit" value="">
+								Travailler
+							  	<span class="fa fa-suitcase"></span>
+						  </button>
+						  </a>
+					  </li>
+					  <li class="list-inline-item transmitvcart galssescart2 cart cart box_1">
+						  <a href="jobs.php#hire">
+						  <button class="top_transmitv_cart" type="submit" name="submit" value="">
+								Embaucher
+							  	<span class="fa fa-building"></span>
+						  </button>
+						  </a>
+					  </li>
+					</ul>
+					<!--//icons top only pour phone and tablettes-->
 					<!--//right-->
 					<div class="overlay-login text-left">
 					  <button type="button" class="overlay-close1">
@@ -164,7 +242,7 @@ include('assets/includes/constants.php');
 							<div class="form-group">
 							  <p class="login-texthny mb-2">Téléphone ou Addresse email</p>
 							  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-								placeholder="Ex: 05181818" name="num" required="">
+								placeholder="Ex: 05181818" name="numMail" required="">
 							</div>
 							<div class="form-group">
 							  <p class="login-texthny mb-2">Mot de passe</p>
@@ -175,7 +253,7 @@ include('assets/includes/constants.php');
 						  </form>
 							
 							<div class="form-check mb-2">
-								<i class="privacy-policy"><a href="?query=mdp-oublie" style="color:#fff"><span class="fa fa-arrow-right"></span> Mot de passe oublié ?</a></i>
+								<i class="privacy-policy"><a href="sign-up.php?type=recuperation" style="color:#fff"><span class="fa fa-arrow-right"></span> Mot de passe oublié ?</a></i>
 								<i class="privacy-policy"><a href="#" class="overlay-close1" style="color:#fff"><span class="fa fa-arrow-right"></span> Pas encore de compte ?</a></i>
 							</div>
 						  <!--//login-form-->
@@ -209,7 +287,7 @@ include('assets/includes/constants.php');
 							<button type="submit" class="btn">Chercher</button>
 						  </form>
 							<br>
-							<center><a href="search.php"><span class="fa fa-info-circle"></span> Ou passez en recherche affinée <b style="color:orange">ici</b> <span class="fa fa-running"></span></a></center>
+							<center><a href="search.php"><span class="fa fa-info-circle"></span> Ou passez en recherche affinée <b style="color:orange">ici</b> <span class="fas fa-running"></span></a></center>
 
 						</div>
 

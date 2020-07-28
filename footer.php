@@ -16,18 +16,6 @@ switch($query){
 ?>
 <!-- //connexion -->
 
-<!-- inscription -->
-<?php
-
-?>
-<!-- //inscription -->
-
-<!-- mdp oublié -->
-<?php
-
-?>
-<!-- //mdp oublié -->
-
 
   <section class="w3l-footer-22">
       <!-- footer-22 -->
@@ -55,8 +43,8 @@ switch($query){
                   </div>
 
                   <div class="right-side col-lg-8 pl-lg-5">
-                      <h4 class="d-none d-md-block" style="font-size:25px">JE TRAVAIL MAINTENANT OU J'EMBAUCHE</h4>
-                      <h4 class="d-md-none" style="font-size:15px">JE TRAVAIL MAINTENANT OU J'EMBAUCHE</h4>
+                      <h4 class="d-none d-md-block" style="font-size:25px">JE TRAVAIL MAINTENANT OU J'EMBAUCHE <span class="fas fa-grin-hearts"></span></h4>
+                      <h4 class="d-md-none" style="font-size:15px">JE TRAVAIL MAINTENANT OU J'EMBAUCHE <span class="fas fa-grin-hearts"></span></h4>
                       <div class="sub-columns">
                           <div class="sub-one-left">
                               <h6>Liens Rapides</h6>

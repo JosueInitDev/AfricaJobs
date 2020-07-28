@@ -93,6 +93,24 @@ function viewsNumber($elt, $id, $viewer){
 	$vw->closeCursor();
 }
 
+function passwordGenerator($length){
+	$alphas="azertyuiopqsdfghjklmwxcvbn";
+	$ALPHAS="AZERTYUIOPQSDFGHJKLMWXCVBN";
+	$numbers="0123456789";
+	$symbls="~!@#$%^&*()_+{}:?><;.,";
+	
+	$elts=[$alphas, $ALPHAS, $numbers, $symbls];
+	$password="";
+	
+	for ($i=0; $i<$length; $i++){
+		$nbr=random_int(0,3); //detect if we will pick an alpha, ALPHA, number or symbl
+		$actual=$elts[$nbr];
+		$nbr2=random_int(0,strlen($actual)-1);
+		$password=$password.$actual[$nbr2];
+	}
+	return $password;
+}
+
 function jobSection($Elt, $EltTxt, $type, $categorie, $cat, $groupe){
 	include('assets/includes/identifiants.php');
 	?>
@@ -102,11 +120,15 @@ function jobSection($Elt, $EltTxt, $type, $categorie, $cat, $groupe){
 				<h3 class="hny-title mb-0 text-center"><span>Nos Jobs</span> <span class="fa fa-hand-o-right"></span> <?php echo $EltTxt ?></h3>
 				<hr>
 				<!---------------boutons-------------------->
-				<div style="position:sticky; top:0px; text-align:center; background-image: linear-gradient(silver 20%, rgba(255,255,255,0.1)); padding-left:7px; padding-right:7px; padding-bottom:35px; z-index:990;">
+				<div class="d-md-none" style="position:sticky; top:0px; text-align:center; background-image: linear-gradient(black 20%, rgba(255,255,255,0.1)); padding-bottom:20px; z-index:990;">
+					<button class="btn btn-default" onclick="openNav()" style="border-radius:15px; background:#000; color:#fff; margin-bottom:2px;"><span class="fa fa-align-center"></span> Filtrer Les Jobs</button>
+				</div>
+				
+				<div class="d-none d-md-block" style="position:sticky; top:0px; text-align:center; background-image: linear-gradient(black 10%, rgba(255,255,255,0.1)); padding-left:7px; padding-right:7px; padding-bottom:35px; z-index:990;">
 					<button class="btn btn-default" onclick="openNav()" style="border-radius:15px; background:#000; color:#fff; margin-bottom:2px;"><span class="fa fa-align-center"></span> Filtrer Les Jobs</button> :: 
-					<a href="jobs.php?type=work&categorie=sans-diplome"><button class="btn btn-default" onclick="openNav()" style="border-radius:15px; background:#000; color:#fff; margin-bottom:2px;"><span class="fa fa-car"></span> Jobs Sans Diplôme</button></a> :: 
-					<a href="jobs.php?type=work&categorie=avec-diplome"><button class="btn btn-default" onclick="openNav()" style="border-radius:15px; background:#000; color:#fff; margin-bottom:2px;"><span class="fa fa-graduation-cap"></span> Jobs Avec Diplôme</button></a> :: 
-					<a href="jobs.php?type=hire&categorie=sans-diplome"><button class="btn btn-default" onclick="openNav()" style="border-radius:15px; background:#000; color:#fff; margin-bottom:2px;"><span class="fa fa-home"></span> Récruter Sans Diplôme</button></a> :: 
+					<a href="jobs.php?type=work&categorie=sans-diplome"><button class="btn btn-default" style="border-radius:15px; background:#000; color:#fff; margin-bottom:2px;"><span class="fa fa-car"></span> Jobs Sans Diplôme</button></a> :: 
+					<a href="jobs.php?type=work&categorie=avec-diplome"><button class="btn btn-default" style="border-radius:15px; background:#000; color:#fff; margin-bottom:2px;"><span class="fa fa-graduation-cap"></span> Jobs Avec Diplôme</button></a> :: 
+					<a href="jobs.php?type=hire&categorie=sans-diplome"><button class="btn btn-default" style="border-radius:15px; background:#000; color:#fff; margin-bottom:2px;"><span class="fa fa-home"></span> Récruter Sans Diplôme</button></a> :: 
 					<a href="jobs.php?type=hire&categorie=avec-diplome"><button class="btn btn-default" style="border-radius:15px; background:#000; color:#fff; margin-bottom:2px;"><span class="fa fa-building"></span> Récruter Avec Diplôme</button></a>
 				</div>
 				<!---------------//boutons-------------------->
@@ -114,7 +136,12 @@ function jobSection($Elt, $EltTxt, $type, $categorie, $cat, $groupe){
 				<div id="mySidenav" class="sidenav">
 					<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&and;</a>
 					<?php echo '<p>'.$Elt.'</p>' ?>
-					<i>:: Sans Diplôme ::</i>
+					<a class="d-md-none" href="jobs.php?type=work&categorie=sans-diplome"><span class="fa fa-car"></span> Jobs Sans Diplôme</a>
+					<a class="d-md-none" href="jobs.php?type=work&categorie=avec-diplome"><span class="fa fa-graduation-cap"></span> Jobs Avec Diplôme</a>
+					<a class="d-md-none" href="jobs.php?type=hire&categorie=sans-diplome"><span class="fa fa-home"></span> Récruter Sans Diplôme</a>
+					<a class="d-md-none" href="jobs.php?type=hire&categorie=avec-diplome"><span class="fa fa-building"></span> Récruter Avec Diplôme</a>
+					<hr class="d-md-none">
+					<i>:: Jobs Sans Diplôme ::</i>
 					<a href="jobs.php?type=work&categorie=sans-diplome&cat=menagere"><span class="fa fa-home"></span> Ménagère</a>
 					<a href="jobs.php?type=work&categorie=sans-diplome&cat=chauffeur"><span class="fa fa-taxi"></span> Chauffeur</a>
 					<a href="jobs.php?type=work&categorie=sans-diplome&cat=commercant"><span class="fa fa-shopping-basket"></span> Commerçant</a>
@@ -125,7 +152,7 @@ function jobSection($Elt, $EltTxt, $type, $categorie, $cat, $groupe){
 					<a href="jobs.php?type=work&categorie=sans-diplome&cat=cybercafe"><span class="fa fa-laptop"></span> CyberCafé</a>
 					<a href="jobs.php?type=work&categorie=sans-diplome&cat=autre"><span class="fa fa-list-alt"></span> Autre</a>
 					<hr>
-					<i>:: Avec Diplôme ::</i>
+					<i>:: Jobs Avec Diplôme ::</i>
 					<a href="jobs.php?type=work&categorie=avec-diplome"><span class="fa fa-graduation-cap"></span> Tout</a>
 					<hr>
 					<p>Récruter les personnes</p>
@@ -173,7 +200,15 @@ function jobSection($Elt, $EltTxt, $type, $categorie, $cat, $groupe){
 						while ($data=$query->fetch()){
 							?>
 							<div class="col-lg-2 col-md-4 col-4 welcome-image">
-								<div class="boxhny13" style="background-image:url('assets/images/jobs/<?php echo $data['jb_photo'] ?>'); height:160px; width:160px; border-radius:50%; background-position:center; background-size:cover;">
+								<center>
+								<div class="d-none d-md-block boxhny13" style="background-image:url('assets/images/jobs/<?php echo $data['jb_photo'] ?>'); height:160px; width:160px; border-radius:50%; background-position:center; background-size:cover;">
+									<a href="job-infos.php?jb=<?php echo $data['jb_id'] ?>">
+										<div class="boxhny-content">
+											<h3 class="title"><span class="fa fa-eye"></span> Détails</h3>
+										</div>
+									</a>
+								</div>
+								<div class="d-md-none boxhny13" style="background-image:url('assets/images/jobs/<?php echo $data['jb_photo'] ?>'); height:100px; width:100px; border-radius:50%; background-position:center; background-size:cover;">
 									<a href="job-infos.php?jb=<?php echo $data['jb_id'] ?>">
 										<div class="boxhny-content">
 											<h3 class="title"><span class="fa fa-eye"></span> Détails</h3>
@@ -182,6 +217,7 @@ function jobSection($Elt, $EltTxt, $type, $categorie, $cat, $groupe){
 								</div>
 								<?php if (strlen($data['jb_titre'])<=30) echo '<h4 class="title"><a href="job-infos.php?jb='.$data['jb_id'].'">'.$data['jb_titre'].'</a></h4>';
 								else echo '<h4 class="title"><a href="job-infos.php?jb='.$data['jb_id'].'">'.substr($data['jb_titre'],0,28).'...</a></h4>'; ?>
+								</center>
 							</div>
 							<?php
 						}
@@ -264,19 +300,27 @@ function userSection($Elt, $EltTxt, $type, $categorie, $cat, $groupe){
 				<h3 class="hny-title mb-0 text-center"><span>Embaucher</span> <span class="fa fa-hand-o-right"></span> <?php echo $EltTxt ?></h3>
 				<hr>
 				<!---------------boutons-------------------->
-				<!--div style="position:sticky; top:0px; text-align:center; background-image: linear-gradient(silver 20%, rgba(255,255,255,0.1)); padding-left:7px; padding-right:7px; padding-bottom:35px; z-index:990;"-->
-				<div class="jobsButtons">
+				<div class="d-md-none" style="position:sticky; top:0px; text-align:center; background-image: linear-gradient(black 20%, rgba(255,255,255,0.1)); padding-bottom:20px; z-index:990;">
+					<button class="btn btn-default" onclick="openNav()" style="border-radius:15px; background:#000; color:#fff; margin-bottom:2px;"><span class="fa fa-align-center"></span> Filtrer Résultats</button>
+				</div>
+				
+				<div class="d-none d-md-block" style="position:sticky; top:0px; text-align:center; background-image: linear-gradient(black 10%, rgba(255,255,255,0.1)); padding-left:7px; padding-right:7px; padding-bottom:35px; z-index:990;">
 					<button class="btn btn-default" onclick="openNav()" style="border-radius:15px; background:#000; color:#fff; margin-bottom:2px;"><span class="fa fa-align-center"></span> Filtrer Résultats</button> :: 
 					<a href="jobs.php?type=hire&categorie=sans-diplome"><button class="btn btn-default" onclick="openNav()" style="border-radius:15px; background:#000; color:#fff; margin-bottom:2px;"><span class="fa fa-home"></span> Récruter Sans Diplôme</button></a> :: 
 					<a href="jobs.php?type=hire&categorie=avec-diplome"><button class="btn btn-default" style="border-radius:15px; background:#000; color:#fff; margin-bottom:2px;"><span class="fa fa-building"></span> Récruter Avec Diplôme</button></a> :: 
-					<a href="jobs.php?type=work&categorie=sans-diplome"><button class="btn btn-default" onclick="openNav()" style="border-radius:15px; background:#000; color:#fff; margin-bottom:2px;"><span class="fa fa-car"></span> Jobs Sans Diplôme</button></a> :: 
-					<a href="jobs.php?type=work&categorie=avec-diplome"><button class="btn btn-default" onclick="openNav()" style="border-radius:15px; background:#000; color:#fff; margin-bottom:2px;"><span class="fa fa-graduation-cap"></span> Jobs Avec Diplôme</button></a>
+					<a href="jobs.php?type=work&categorie=sans-diplome"><button class="btn btn-default" style="border-radius:15px; background:#000; color:#fff; margin-bottom:2px;"><span class="fa fa-car"></span> Jobs Sans Diplôme</button></a> :: 
+					<a href="jobs.php?type=work&categorie=avec-diplome"><button class="btn btn-default" style="border-radius:15px; background:#000; color:#fff; margin-bottom:2px;"><span class="fa fa-graduation-cap"></span> Jobs Avec Diplôme</button></a>
 				</div>
 				<!---------------//boutons-------------------->
 				<!---------------side menu----------------------------->
 				<div id="mySidenav" class="sidenav">
 					<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&and;</a>
 					<p><?php echo $Elt ?></p>
+					<a class="d-md-none" href="jobs.php?type=hire&categorie=sans-diplome"><span class="fa fa-home"></span> Récruter Sans Diplôme</a>
+					<a class="d-md-none" href="jobs.php?type=hire&categorie=avec-diplome"><span class="fa fa-building"></span> Récruter Avec Diplôme</a>
+					<a class="d-md-none" href="jobs.php?type=work&categorie=sans-diplome"><span class="fa fa-car"></span> Jobs Sans Diplôme</a>
+					<a class="d-md-none" href="jobs.php?type=work&categorie=avec-diplome"><span class="fa fa-graduation-cap"></span> Jobs Avec Diplôme</a>
+					<hr class="d-md-none">
 					<i>:: Profiles Diplômés ::</i>
 					<a href="jobs.php?type=hire&categorie=avec-diplome&cat=bac"><span class="fa fa-graduation-cap"></span> BAC</a>
 					<a href="jobs.php?type=hire&categorie=avec-diplome&cat=bts"><span class="fa fa-graduation-cap"></span> BTS</a>

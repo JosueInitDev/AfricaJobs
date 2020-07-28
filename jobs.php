@@ -191,7 +191,7 @@ switch($type){
 			<div class="subscription-grids row" style="background-color: #f4f4f4">
 				<div class="subscription-right form-right-inf col-lg-6 p-md-5 p-4">
 					<div class="p-lg-5 py-md-0 py-3">
-						<h3 class="hny-title">Créer un compte et trouver le <span>job de son rêve !</span></h3>
+						<h3 class="hny-title">Créez un compte et trouvez le <span>job de votre rêve maintenant <i class="fas fa-grin-hearts"></i></span></h3>
 							<p>Trouver une bonne, un taximan, un couturier, un garagiste (...), un manager, un ingénieur, un technicien (...)</p>
 						<form action="search.php" method="post" class="search-box mt-lg-5 mt-4">
 							<div class="forms-gds">

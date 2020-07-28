@@ -6,6 +6,31 @@ License URL: http://mailto:jose.init.dev@gmail.com
 First version date : 2020-07-21
 Version: 1.0  -  date: 2020-07-21
 */
+
+
+@media (min-width: 960px){
+	.jobsButtons{
+		position: sticky;
+		top: 0px;
+		text-align: center;
+		background-image: linear-gradient(silver 20%, rgba(255,255,255,0.1));
+		padding-left: 7px;
+		padding-right: 7px;
+		padding-bottom: 35px;
+		z-index:990;
+	}
+}
+@media (max-width: 960px){
+	.jobsButtons{
+		position: relative;
+		text-align: center;
+		background-image: linear-gradient(silver 20%, rgba(255,255,255,0.1));
+		padding-left: 7px;
+		padding-right: 7px;
+		padding-bottom: 35px;
+		z-index:990;
+	}
+}
 	
 .card-icon:hover {
 	filter: grayscale(50%);

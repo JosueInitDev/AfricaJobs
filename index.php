@@ -1,4 +1,7 @@
-<?php include('top.php'); ?>
+<?php
+include('assets/includes/constants.php');
+include('top.php');
+?>
 <div class="bannerhny-content">
 	<!--/banner-slider-->
 	<div class="content-baner-inf">
@@ -46,8 +49,8 @@
 				<div class="carousel-item item4">
 					<div class="container">
 						<div class="carousel-caption">
-							<h3 class="d-none d-md-block">Voir jobs disponilbes<br>Ou les occasions d'embauche</h3>
-							<h3 class="d-md-none" style="font-size:20px">Voir jobs disponilbes<br>Ou les occasions d'embauche</h3>
+							<h3 class="d-none d-md-block">Voir jobs<br>Ou offres d'emploi</h3>
+							<h3 class="d-md-none" style="font-size:20px">Voir jobs<br>Ou offres d'emploi</h3>
 							<a href="#" class="shop-button btn">
 								Voir maintenant <span class="fas fa-running"></span>
 							</a>
@@ -68,19 +71,19 @@
 	<!--//banner-slider-->
 	<!--//banner-slider-->
 	<div class="right-banner">
-		<div class="right-1">
+		<div class="right-1" style="padding-top: 0px;">
 			<div class="container">
 				<div class="row">
 					<div class="col-12">
 					  <div class="wrap" style="opacity:0.8">
-						  <h5 style="color:#fff; font-size:30px">Trouvez un job maintenant</h5>
-						  <h5 style="color:#fff; font-size:20px">En créant un compte</h5>
+						  <h5 style="color:#fff; font-size:22px; text-align:center;">Trouvez un job maintenant</h5>
+						  <h5 style="color:#fff; font-size:17px; text-align:center;">En créant un compte</h5>
 						<div class="login-bghny p-md-5 p-4 mx-auto mw-100">
 						  <form action="#" method="post">
 							<div class="form-group">
 							  <p class="login-texthny mb-2">Numéro de téléphone ou email</p>
-							  <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-								placeholder="Ex: 05181818" required="">
+							  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+								placeholder="Ex: 05181818" name="numMail" required="">
 							</div>
 							<div class="form-group">
 							  <p class="login-texthny mb-2">Je suis</p>
@@ -241,12 +244,12 @@ if ($nbr>0){
 			<div class="subscription-grids row" style="background-color: #f4f4f4">
 				<div class="subscription-right form-right-inf col-lg-6 p-md-5 p-4">
 					<div class="p-lg-5 py-md-0 py-3">
-						<h3 class="hny-title">Créer un compte et trouver le <span>job de son rêve !</span></h3>
+						<h3 class="hny-title">Créez un compte et trouvez le <span>job de votre rêve maintenant <i class="fas fa-grin-hearts"></i></span></h3>
 							<p>Trouver une bonne, un taximan, un couturier, un garagiste (...), un manager, un ingénieur, un technicien (...)</p>
 						<form action="search.php" method="post" class="search-box mt-lg-5 mt-4">
 							<div class="forms-gds">
 								<div class="form-input">
-									<input type="email" name="search" placeholder="Entrez une adresse mail pour créer votre compte" required="" style="background:#000; color:#fff">
+									<input type="email" name="numMail" placeholder="Entrez une adresse mail pour créer votre compte" required="" style="background:#000; color:#fff">
 								</div>
 								<div class="form-input"><button class="btn">Inscription</button></div>
 							</div>
