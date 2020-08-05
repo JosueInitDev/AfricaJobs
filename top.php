@@ -7,6 +7,13 @@ First version date : 2020-07-21
 Version: 1.0  -  date: 2020-07-21
 -->
 
+<?php
+if (isset($_SESSION['cl_id']) and isset($_SESSION['cl_nom'])){
+	setcookie('cl_nom', $_SESSION['cl_nom'], time() + (86400 * 30), "/"); // 86400 = 1 day (expires after 30 days)
+	setcookie('cl_id', $_SESSION['cl_id'], time() + (86400 * 30), "/"); // 86400 = 1 day (expires after 30 days)
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -40,11 +47,17 @@ Version: 1.0  -  date: 2020-07-21
 		<!-- links -->
 		<link rel="stylesheet" href="assets/css/style2.css">
 		<link rel="shortcut icon" type="image/x-icon" href="assets/images/icon-site.png" type="text/css" media="all" />
+
 <!--
 		<link href="//fonts.googleapis.com/css?family=Oswald:300,400,500,600&display=swap" rel="stylesheet">
 		<link href="//fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,900&display=swap" rel="stylesheet">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 -->
+		
+		<!------- progress bar ----------->
+<!--		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
+		<!------- //progress bar ----------->
+		
 		<script src='https://kit.fontawesome.com/a076d05399.js'></script>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<!-- //links -->
@@ -62,9 +75,10 @@ Version: 1.0  -  date: 2020-07-21
         else
         {
             $cl_nom = $nom_site;
-            $cl_id = 1;
+            $cl_id = 0;
         }
         //-----------//permet de reconnaitre le client--------------
+		//$cl_id=23;
         ?>
 	</head>
 	<body>
@@ -86,10 +100,10 @@ Version: 1.0  -  date: 2020-07-21
 					<!--//left-->
 					<!--right-->
 					<!--icons top only screen md, lg and xl-->
-					<ul class="list-inline d-none d-md-block" style="position:absolute; right:10px; top:inherit;">
+					<ul class="list-inline" style="position:absolute; right:10px; top:inherit;">
 					  <li class="list-inline-item button-log usernhy">
 						  <?php if ($cl_id<=0){ ?>
-							<a class="btn-open" href="#" >
+							<a class="btn-open" href="#" style="width:25px; color:#fff;">
 							  <span class="fa fa-user" aria-hidden="true" title="Connectez-vous à votre compte"></span>
 							</a>
 						  <?php }else{ ?>
@@ -107,34 +121,47 @@ Version: 1.0  -  date: 2020-07-21
 					  </li>
 					  <li class="list-inline-item dropdown-menu2"><!----notifications------->
 						  <?php
+						  //------1
 						  $notifs=$db->prepare('SELECT COUNT(*) FROM views WHERE vw_element="profile (cv)" AND vw_elt_id=:id AND vw_active=1');
 						  $notifs->bindValue(':id', $cl_id, PDO::PARAM_INT);
 						  $notifs->execute();
 						  $nbr=$notifs->fetchcolumn();
+						  //------2
 						  $notifs=$db->prepare('SELECT COUNT(*) FROM views INNER jOIN jobs ON views.vw_elt_id=jobs.jb_id WHERE views.vw_element="offre d\'emploi" AND jobs.cl_id=:id AND vw_active=1');
 						  $notifs->bindValue(':id', $cl_id, PDO::PARAM_INT);
 						  $notifs->execute();
 						  $nbr2=$notifs->fetchcolumn();
+						  //---------3
+						  $notifs=$db->prepare('SELECT COUNT(DISTINCT ch_code) FROM chats WHERE cl_id=:id AND ch_lu=0');
+						  $notifs->bindValue(':id', $cl_id, PDO::PARAM_INT);
+						  $notifs->execute();
+						  $nbr3=$notifs->fetchcolumn();
 						  
-						  if ($nbr+$nbr2<=0){ //0 notif
+						  if ($nbr+$nbr2+$nbr3 <= 0){ //0 notif
 							  	?><button class="menu-btn"><span class="fa fa-bell-slash"></span></button>
 								<div class="menu-content">
 									<i>Aucune notification</i>
 								</div>
 						  		<?php
 						  }else{
-						  		?><button class="menu-btn"><span class="fa fa-bell"><?php echo $nbr+$nbr2 ?></span></button>
+						  		?><button class="menu-btn"><span class="fa fa-bell"><?php echo $nbr+$nbr2+$nbr3 ?></span></button>
 								<div class="menu-content">
 									<?php
 									$j=1;
 									if ($nbr>0){
-										echo '<b>'.$j.'</b> '; ?><a href="#" style="color:#000">Profile (CV) consulté (<?php echo $nbr ?> fois)</a><hr><?php
+										echo '<b>'.$j.':</b> '; ?><a href="compte.php?option=candidatures" style="color:#000">Profile (CV) consulté (<?php echo $nbr ?> fois)</a><hr><?php
 										$j++;
 									}
 									if ($nbr2>0){
-										echo '<b>'.$j.'</b> '; ?><a href="#" style="color:#000">Offre d'emploi consultée (<?php echo $nbr2 ?> fois)</a><hr><?php
+										echo '<b>'.$j.':</b> '; ?><a href="compte.php?option=candidatures" style="color:#000">Offre d'emploi consultée (<?php echo $nbr2 ?> fois)</a><hr><?php
 										$j++;
-									} ?>
+									}
+									if ($nbr3>0){
+										echo '<b>'.$j.':</b> '; ?><a href="compte.php?option=chats" style="color:#000">Nouveaux messages (<?php echo $nbr3 ?>)</a><hr><?php
+										$j++;
+									}
+							  		//this code is created by Josué - jose.init.dev@gmail.com
+									?>
 								</div>
 						  		<?php
 						  } ?>
@@ -158,10 +185,11 @@ Version: 1.0  -  date: 2020-07-21
 					</ul>
 					<!--//icons top only screen md, lg and xl-->
 					<!--icons top only pour phone and tablettes-->
+					  <?php /*
 					<ul class="list-inline d-md-none">
 					  <li class="list-inline-item button-log usernhy">
 						  <?php if ($cl_id<=0){ ?>
-							<a class="btn-open" href="#" >
+							<a class="btn-open" href="#" style="width:25px; color:#fff;" >
 							  <span class="fa fa-user" aria-hidden="true" title="Connectez-vous à votre compte"></span>
 							</a>
 						  <?php }else{ ?>
@@ -179,34 +207,47 @@ Version: 1.0  -  date: 2020-07-21
 					  </li>
 					  <li class="list-inline-item dropdown-menu2"><!----notifications------->
 						  <?php
+						  //------1
 						  $notifs=$db->prepare('SELECT COUNT(*) FROM views WHERE vw_element="profile (cv)" AND vw_elt_id=:id AND vw_active=1');
 						  $notifs->bindValue(':id', $cl_id, PDO::PARAM_INT);
 						  $notifs->execute();
 						  $nbr=$notifs->fetchcolumn();
+						  //------2
 						  $notifs=$db->prepare('SELECT COUNT(*) FROM views INNER jOIN jobs ON views.vw_elt_id=jobs.jb_id WHERE views.vw_element="offre d\'emploi" AND jobs.cl_id=:id AND vw_active=1');
 						  $notifs->bindValue(':id', $cl_id, PDO::PARAM_INT);
 						  $notifs->execute();
 						  $nbr2=$notifs->fetchcolumn();
+						  //---------3
+						  $notifs=$db->prepare('SELECT COUNT(DISTINCT ch_code) FROM chats WHERE cl_id=:id AND ch_lu=0');
+						  $notifs->bindValue(':id', $cl_id, PDO::PARAM_INT);
+						  $notifs->execute();
+						  $nbr3=$notifs->fetchcolumn();
 						  
-						  if ($nbr+$nbr2<=0){ //0 notif
+						  if ($nbr+$nbr2+$nbr3 <= 0){ //0 notif
 							  	?><button class="menu-btn"><span class="fa fa-bell-slash"></span></button>
 								<div class="menu-content">
 									<i>Aucune notification</i>
 								</div>
 						  		<?php
 						  }else{
-						  		?><button class="menu-btn"><span class="fa fa-bell"><?php echo $nbr+$nbr2 ?></span></button>
+						  		?><button class="menu-btn"><span class="fa fa-bell"><?php echo $nbr+$nbr2+$nbr3 ?></span></button>
 								<div class="menu-content">
 									<?php
 									$j=1;
 									if ($nbr>0){
-										echo '<b>'.$j.'</b> '; ?><a href="#" style="color:#000">Profile (CV) consulté (<?php echo $nbr ?> fois)</a><hr><?php
+										echo '<b>'.$j.':</b> '; ?><a href="compte.php?option=candidatures" style="color:#000">Profile (CV) consulté (<?php echo $nbr ?> fois)</a><hr><?php
 										$j++;
 									}
 									if ($nbr2>0){
-										echo '<b>'.$j.'</b> '; ?><a href="#" style="color:#000">Offre d'emploi consultée (<?php echo $nbr2 ?> fois)</a><hr><?php
+										echo '<b>'.$j.':</b> '; ?><a href="compte.php?option=candidatures" style="color:#000">Offre d'emploi consultée (<?php echo $nbr2 ?> fois)</a><hr><?php
 										$j++;
-									} ?>
+									}
+									if ($nbr3>0){
+										echo '<b>'.$j.':</b> '; ?><a href="compte.php?option=chats" style="color:#000">Nouveaux messages (<?php echo $nbr3 ?>)</a><hr><?php
+										$j++;
+									}
+							  		//this code is created by Josué - jose.init.dev@gmail.com
+									?>
 								</div>
 						  		<?php
 						  } ?>
@@ -228,6 +269,7 @@ Version: 1.0  -  date: 2020-07-21
 						  </a>
 					  </li>
 					</ul>
+					  */ ?>
 					<!--//icons top only pour phone and tablettes-->
 					<!--//right-->
 					<div class="overlay-login text-left">
@@ -238,7 +280,7 @@ Version: 1.0  -  date: 2020-07-21
 						<h5 class="text-center mb-4">Connectez-Vous</h5>
 						<div class="login-bghny p-md-5 p-4 mx-auto mw-100">
 						  <!--/login-form-->
-						  <form action="#" method="post">
+						  <form action="sign-up.php?type=connexion" method="post">
 							<div class="form-group">
 							  <p class="login-texthny mb-2">Téléphone ou Addresse email</p>
 							  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
@@ -254,7 +296,7 @@ Version: 1.0  -  date: 2020-07-21
 							
 							<div class="form-check mb-2">
 								<i class="privacy-policy"><a href="sign-up.php?type=recuperation" style="color:#fff"><span class="fa fa-arrow-right"></span> Mot de passe oublié ?</a></i>
-								<i class="privacy-policy"><a href="#" class="overlay-close1" style="color:#fff"><span class="fa fa-arrow-right"></span> Pas encore de compte ?</a></i>
+								<i class="privacy-policy"><a href="sign-up.php" class="overlay-close1" style="color:orange"><span class="fa fa-arrow-right"></span> Nouvau Compte ?</a></i>
 							</div>
 						  <!--//login-form-->
 						</div>
@@ -304,37 +346,34 @@ Version: 1.0  -  date: 2020-07-21
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					  <ul class="navbar-nav ml-auto">
 						<li class="nav-item">
-						  <a class="nav-link" href="index.php">Accueil</a>
+						  <a class="nav-link" href="index.php"><span class="fa fa-af"></span> Accueil</a>
 						</li>
 						<li class="nav-item active">
 						  <a class="nav-link" href="jobs.php" title="Voir les jobs et employés">Jobs</a>
 						</li>
 						<li class="nav-item">
-						  <a class="nav-link" href="jobs.php#work" title="Trouver un job">Travailler</a>
-						</li>
-						<li class="nav-item active">
 						  <a class="nav-link" href="go-premium.php" title="Embaucher quelqu'un">Premium</a>
 						</li>
-						<li class="nav-item">
+						<li class="nav-item active">
 						  <a class="nav-link" href="add-job.php" title="Ajouter un job"><span class="fa fa-plus"></span> Ajouter Job</a>
 						</li>
-						<li class="nav-item active">
+						<li class="nav-item">
 						  <a class="nav-link" href="faq.php" title="Avez-vous une question ?">FAQ</a>
 						</li>
-						<li class="nav-item dropdown dropleft">
+						<li class="nav-item dropdown dropleft active">
 						  <a class="nav-link dropdown-toggle" href="#" id="plus" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Plus d'infos"><span class="fa fa-plus"></span></a>
 						  <div class="dropdown-menu" aria-labelledby="plus">
-							<div class="dropdown-header">Divers</div>
+								<div class="dropdown-header">Divers</div>
 							<a class="dropdown-item" href="about.php">A Propos</a>
 							<a class="dropdown-item" href="contact.php">Contact</a>
-								<div class="dropdown-divider"></div>
-							<div class="dropdown-header">Trouver un job</div>
-							<a class="dropdown-item" href="#">Job sans diplôme</a>
-							<a class="dropdown-item" href="#">Job avec diplôme</a>
-								<div class="dropdown-divider"></div>
-							<div class="dropdown-header">Trouver un employé</div>
-							<a class="dropdown-item" href="#">Employé non diplômé</a>
-							<a class="dropdown-item" href="#">Employé diplômé</a>
+								<div class="dropdown-divider d-none d-md-block"></div>
+							<div class="dropdown-header d-none d-md-block">Trouver un job</div>
+							<a class="dropdown-item d-none d-md-block" href="jobs.php?type=work&categorie=sans-diplome">Job sans diplôme</a>
+							<a class="dropdown-item d-none d-md-block" href="jobs.php?type=work&categorie=avec-diplome">Job avec diplôme</a>
+								<div class="dropdown-divider d-none d-md-block"></div>
+							<div class="dropdown-header d-none d-md-block">Trouver un employé</div>
+							<a class="dropdown-item d-none d-md-block" href="jobs.php?type=hire&categorie=sans-diplome">Employé non diplômé</a>
+							<a class="dropdown-item d-none d-md-block" href="jobs.php?type=hire&categorie=avec-diplome">Employé diplômé</a>
 						  </div>
 						</li>
 					  </ul>

@@ -77,13 +77,18 @@
 											</aside>
 											
 											<hr>
-											<?php if ($data['cl_diplome']=='sans_diplome') echo '<p><span class="fas fa-user-graduate"></span> <b>Diplôme</b> : Non Diplômé</p>';
+											<?php if ($data['cl_diplome']=='sans_diplome') echo '<p><span class="fas fa-user-graduate"></span> <b>Diplôme</b>: Non Diplômé</p>';
 											else echo '<p><span class="fas fa-user-graduate"></span> <b>Diplôme</b> : Diplômé</p>'; ?>
 											<hr>
 										</div>
 										<div class="col-12" style="padding:10px; background:#FDF3E3; border-right:10px solid #000;">
 											<hr>
-											<p><span class="fas fa-chalkboard-teacher"></span> <b>Formation</b> : <?php echo $data['cl_niveau'] ?></p>
+											<p><span class="fas fa-chalkboard-teacher"></span> <b>Formation</b>: <?php echo $data['cl_niveau'] ?></p>
+											<hr>
+										</div>
+										<div class="col-12" style="padding:10px; background:#f4f4f4; border-right:10px solid #000;">
+											<hr>
+											<p><span class="fas fa-pen"></span> <b>Expériences</b>: <?php echo $data['cl_experience'] ?></p>
 											<hr>
 										</div>
 									</div>
@@ -95,13 +100,13 @@
 									<p><?php echo $data['cl_description'] ?></p>
 									<hr>
 									<?php
-									if (strlen($data['cl_cv'])>10 and $cl_id<=0){ //cv exists
+									if (strlen($data['cl_cv'])>8 and $cl_id<=0){ //cv exists
 										?><aside class="button-log usernhy"><span class="fa fa-file-text"></span> <b>CV</b> : 
 										<a class="btn-open" href="#" >
 										  <button class="btn btnOrange"><?php echo 'cv-'.$data['cl_nom'].'.pdf' ?></button>
 										</a></aside><?php
 									}
-									else if (strlen($data['cl_cv'])>10 and $cl_id>0){ //cv exists
+									else if (strlen($data['cl_cv'])>8 and $cl_id>0){ //cv exists
 									?><p><span class="fa fa-file-text"></span> <b>CV</b> : <a href="assets/images/cv/<?php echo $data['cl_cv'] ?>" title="Afficher le CV (dans un autre onglet)" target="_blank"><button class="btn btnOrange"><?php echo 'cv-'.$data['cl_nom'].'.pdf' ?></button></a></p><?php
 									}
 									else{
@@ -158,15 +163,20 @@
 										<div class="col-12" style="padding:10px; background:#f4f4f4; border-right:10px solid #000;">
 											<hr>
 											<?php if ($data['cl_diplome']=='sans_diplome') echo '<p><span class="fas fa-user-graduate"></span> <b>Diplôme</b> : Non Diplômé</p>';
-											else echo '<p><span class="fas fa-user-graduate"></span> <b>Diplôme</b> : Diplômé</p>'; ?>
+											else echo '<p><span class="fas fa-user-graduate"></span> <b>Diplôme</b>: Diplômé</p>'; ?>
 											<hr>
 										</div>
 										<div class="col-12" style="padding:10px; background:#FDF3E3; border-right:10px solid #000;">
 											<hr>
-											<p><span class="fas fa-chalkboard-teacher"></span> <b>Formation</b> : <?php echo $data['cl_niveau'] ?></p>
+											<p><span class="fas fa-chalkboard-teacher"></span> <b>Formation</b>: <?php echo $data['cl_niveau'] ?></p>
 											<hr>
 										</div>
 										<div class="col-12" style="padding:10px; background:#f4f4f4; border-right:10px solid #000;">
+											<hr>
+											<p><span class="fas fa-pen"></span> <b>Expériences</b>: <?php echo $data['cl_experience'] ?></p>
+											<hr>
+										</div>
+										<div class="col-12" style="padding:10px; background:#FDF3E3; border-right:10px solid #000;">
 											<hr>
 											<?php
 											if (strlen($data['cl_cv'])>10 and $cl_id<=0){ //cv exists
@@ -188,10 +198,10 @@
 								
 								<div class="col-8 col-md-9" style="padding:10px" id="embaucher">
 									<hr>
-									<h2><span style="color:darkorange">ENBAU</span>CHER </h2>
+									<h2><span style="color:darkorange">EMBAU</span>CHER </h2>
 									<p>Vous pouvez contacter direntement la personne vias ce site, par appel téléphonique ou par email.</p>
 									<hr>
-									<h4><span class="fa fa-comments"></span> Messagerie du site : <a href="#"><button class="btn btnBlack btn-sm">Messagerie</button></a></h4>
+									<h4><span class="fa fa-comments"></span> Messagerie du site : <a href="chat.php?new-chat=true&with=<?php echo $data['cl_id'] ?>"><button class="btn btnBlack btn-sm">Chater</button></a></h4>
 									<hr>
 									<h4><span class="fa fa-phone"></span> Appel téléphonique : <a href="callto:<?php echo $data['cl_telephone'] ?>"><button class="btn btnBlack btn-sm">Appeler</button></a></h4>
 									<hr>
@@ -209,6 +219,7 @@
 					</div>
 				</div>
 				<?php
+					//this code is created by Josué - jose.init.dev@gmail.com
 				} //end else (of user connected and can be here)
 			break;
 			default:

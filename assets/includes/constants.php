@@ -23,7 +23,7 @@ $twitter_site = "lien-twitter";
 $mail_josue = "jose.init.dev@gmail.com";
 
 $mail_michel = "";
-
+//this code is created by Josué - jose.init.dev@gmail.com
 $facebook_team1 = "";
 $instagram_team1 ="";
 $twitter_team1 = "";

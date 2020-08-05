@@ -1,20 +1,187 @@
+<!-----disconnect (2/2) -- 1/2 in compte.php----->
 <?php
-$query=(isset($_GET['query']))?(htmlspecialchars($_GET['query'])):'';
-switch($query){
-	case 'connexion':
-		
-	break;
-	case 'inscription':
-		
-	break;
+if (isset($_GET['deco-ok'])){
+	?><script type="text/javascript">location.href = 'index.php?deco=true';</script><?php
 }
 ?>
+<!-----//disconnect (2/2) -- 1/2 in compte.php----->
 
-<!-- connexion -->
+<!-------------direct chat------------->
+<div class="dropdownChat">
+	<img class="iconChat" src="assets/images/chat.png">
+	<?php
+	$query=$db->prepare('SELECT COUNT(DISTINCT ch_code) FROM chats WHERE cl_id=:id AND ch_lu=0');
+	$query->bindValue(':id', $cl_id, PDO::PARAM_INT);
+	$query->execute();
+	$nbr=$query->fetchcolumn();
+	?>
+	<i style="background:#000; padding:5px; border-radius:20px; color:#fff; position:fixed; left:10px; bottom:40px; text-align:center; font-size:11px; z-index:2;"><?php echo $nbr ?></i>
+	<div class="dropdown-content-chat">
+		<p style="background:#7C7A77; padding:2px; border-radius:20px; text-align:center;"><a href="compte.php?option=chats" style="color:white">Tous mes chats</a></p>
+		<?php
+		//------chats non lu//------------
+		$query3=$db->prepare('SELECT DISTINCT ch_code FROM chats WHERE cl_id=:id AND ch_lu=0 ORDER BY ch_id DESC LIMIT 7');
+		$query3->bindValue(':id', $cl_id, PDO::PARAM_INT);
+		$query3->execute();
+		while ($codes=$query3->fetch()){
+			$query4=$db->prepare('SELECT ch_message, ch_code, ch_date FROM chats WHERE ch_code=:co AND ch_lu=0 ORDER BY ch_id DESC LIMIT 1');
+			$query4->bindValue(':co', $codes['ch_code'], PDO::PARAM_INT);
+			$query4->execute();
+			$chat=$query4->fetch();
+			?>
+			<img src="assets/images/chat.png" style="width:20px"> <a href="chat.php?code=<?php echo $chat['ch_code'] ?>&start-chat=true"><b><?php echo substr($chat['ch_message'],0,50).' ...'; ?></b></a><br>
+			<i style="font-size:11px;"><?php echo duree($chat['ch_date']) ?></i>
+			<hr>
+			<?php
+		}
+		//------chats lu//------------
+		$query3=$db->prepare('SELECT DISTINCT ch_code FROM chats WHERE cl_id=:id AND ch_lu=1 ORDER BY ch_id DESC LIMIT 5');
+		$query3->bindValue(':id', $cl_id, PDO::PARAM_INT);
+		$query3->execute();
+		while ($codes=$query3->fetch()){
+			$query4=$db->prepare('SELECT ch_message, ch_code, ch_date FROM chats WHERE ch_code=:co AND ch_lu=1 ORDER BY ch_id DESC LIMIT 1');
+			$query4->bindValue(':co', $codes['ch_code'], PDO::PARAM_INT);
+			$query4->execute();
+			$chat=$query4->fetch();
+			?>
+			<img src="assets/images/chat.png" style="width:20px"> <a href="chat.php?code=<?php echo $chat['ch_code'] ?>&start-chat=true"><i><?php echo substr($chat['ch_message'],0,50).' ...'; ?></i></a><br>
+			<i style="font-size:11px;"><?php echo duree($chat['ch_date']) ?></i>
+			<hr>
+			<?php
+		}
+		?>
+		<a href="compte.php?option=chats">Tous mes chats</a>
+	</div>
+</div>
+<style>
+	.dropdownChat {
+	  position: relative;
+	  display: inline-block;
+	}
+	.dropdown-content-chat {
+	  display: none;
+	  position: fixed;
+	  left: 2px;
+	  bottom: 50px;
+	  border-radius: 10px;
+	  background-color: #f9f9f9;
+	  min-width: 300px;
+	  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	  padding: 12px;
+	  max-height: 300px;
+	  overflow: auto;
+	  z-index: 1;
+	}
+	.dropdownChat:hover .dropdown-content-chat {
+	  display: block;
+	}
+	.dropdownChat .iconChat {
+		opacity: 0.8;
+		width: 65px;
+		position: fixed;
+		left: 2px;
+		bottom: 2px;
+		z-index: 1;
+	}
+</style>
+<!-------------//direct chat------------->
+
+<!--------- keep pour later--------------->
+<div class="alert alert-dismissible" style="font-size:20px; position:fixed; top:20vh; left:-100px; display:none; background:#000; z-index:999;" id="keepLater"><p id="successText" style="color:#fff"></p></div>
+<script>
+	//--------------read clients compte ids gardés for later in cookies----------------
+	let x=document.cookie;
+	x=x.split("; ");
+	let elt;
+	let keepLaterIds=[];
+	for (let i=0; i<x.length; i++){
+		let elt=x[i].substring(x[i].length-1,x[i].length);
+		//if (typeof parseInt(elt) === "number"){
+		//	console.log(parseInt(elt));
+		//	console.log(elt);
+		//}
+		if (!keepLaterIds.includes(parseInt(elt))){
+			keepLaterIds.push(parseInt(elt));
+		}
+		//console.log(elt==NaN);
+	}
+	//console.log(keepLaterIds);
+//	console.log(x);
+//	x.forEach(function(item, index){
+//		console.log("Le voilà "+item+"->"+index);
+//	});
+	//--------------//read clients compte ids gardés for later in cookies----------------
+	function keepForLater(clid){
+		document.cookie = "keep"+clid.toString()+"="+clid;
+		showSuccess("Ajouté à vos \"Garder pour plus tard\"");
+	}
+	function showSuccess(mess){
+		document.getElementById('successText').textContent=mess;
+		document.getElementById('keepLater').style.display="block";
+		$(document).ready(function(){
+			$("#keepLater").animate({left: '10px'});
+		});
+		let tps=3;
+		let x=setInterval(function(){
+			tps--;
+			if (tps<=0){
+				document.getElementById('keepLater').style.display="none";
+				document.getElementById('keepLater').style.left="-100px";
+				clearInterval(x);
+			}
+		}, 1000);
+	}
+</script>
+<!--------- //keep pour later--------------->
+<!--------- error alert --------------->
+<div class="alert alert-danger" style="font-size:20px; position:fixed; top:20vh; left:-100px; display:none; z-index:999;" id="errorAlert"><p id="errorText" style="color:#000"></p></div>
+<script>
+	function showError(mess){
+		document.getElementById('errorText').textContent=mess;
+		document.getElementById('errorAlert').style.display="block";
+		$(document).ready(function(){
+			$("#errorAlert").animate({left: '10px'});
+		});
+		let tps=3;
+		let x=setInterval(function(){
+			tps--;
+			if (tps<=0){
+				document.getElementById('errorAlert').style.display="none";
+				document.getElementById('errorAlert').style.left="-100px";
+				clearInterval(x);
+			}
+		}, 1000);
+	}
+</script>
+<!--------- //error alert --------------->
+
+<!---------new account created//----------->
 <?php
-
+//if (true){
+if (isset($_GET['newAccount'])){
+	session_destroy();
+	showSuccess("Compte créé avec succès, bienvenue <b>".$cl_nom."</b> <i class='far fa-grin'></i>");
+}
+if (isset($_GET['deco'])){
+	showSuccess("Déconnexion avec succès, à bientôt. Vous nous quittez déjà <i class='far fa-frown'></i>");
+}
+if (isset($_GET['isConnected'])){
+	session_destroy();
+	showError2('Vous êtes déjà connecté.');
+}
+if (isset($_GET['connectNotTM'])){
+	session_destroy();
+	showError2('Téléphone/Email invalide.');
+}
+if (isset($_GET['mdpError'])){
+	session_destroy();
+	showError2('Mot de passe invalide. L\'avez-vous oublié ?');
+}
+if (isset($_GET['connected'])){
+	session_destroy();
+	showSuccess("Connection avec succès. Heureux de vous revoir <b>".$cl_nom."</b> <i class='far fa-grin'></i>");
+}
 ?>
-<!-- //connexion -->
 
 
   <section class="w3l-footer-22">
@@ -23,7 +190,7 @@ switch($query){
           <div class="container py-lg-5">
               <div class="text-txt row">
                   <div class="left-side col-lg-4">
-                      <h3><a class="logo-footer" href="index.php"><?php echo substr($nom_site,0,3) ?><span class="lohny"><?php echo substr($nom_site,3,1) ?></span><?php echo substr($nom_site,4) ?></a></h3>
+                      <h3><a class="logo-footer" href="index.php" style="border:1px solid #fff; padding:5px; border-radius:5px"><?php echo substr($nom_site,0,3) ?><span class="lohny"><?php echo substr($nom_site,3,1) ?></span><?php echo substr($nom_site,4) ?></a></h3>
                       <!-- if logo is image enable this   
                                     <a class="navbar-brand" href="#index.html">
                                         <img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
@@ -116,6 +283,7 @@ switch($query){
       <!-- //titels-5 -->
 	  <div class="spinner-grow" id="loadingPage" style="position:fixed; top:15px; right:15px; width:60px; height:60px; color:orange; z-index:999;"></div>
 	  <!------ show until page finish loading ----------->
+	  <!--this code is created by Josué - jose.init.dev@gmail.com-->
 	  <script>
 		  document.onreadystatechange = function() { 
 				if (document.readyState !== "complete") { 
@@ -284,9 +452,10 @@ switch($query){
 	display: none;
 	position: absolute;
 	background-color: #fff;
-	min-width: 200px;
+	min-width: 150px;
 	border-radius: 4px;
-	padding: 15px;
+	font-size: 13px;
+	padding: 7px;
 	color: #000;
 	z-index: 1;
 }
@@ -386,7 +555,7 @@ switch($query){
     .pricingTable{ margin-bottom: 30px; }
 }
 /*-----//princing-------*/
-	
+/*-this code is created by Josué - jose.init.dev@gmail.com-*/
 /*---------- scrollbar ------------*/
 ::-webkit-scrollbar {
   width: 10px;
@@ -403,6 +572,11 @@ switch($query){
   background: orange; 
 }
 /*---------- //scrollbar ------------*/
+	
+@keyframes successEx {
+  0%   {left:-300px; top:20vh;}
+  100%  {left:50px; top:20vh;}
+}
 </style>
 
 <!----belt dropdown notification----->

@@ -164,6 +164,7 @@
 					<p>Avec un taux de chômeurs très élévé en Afrique, notre objectif est de lutter contre ce phénomène, nous <?php echo $nom_site ?> créé le 30-07-2020. Pour opportuniser plus la jeunesse dans le domaines de l'emploie, <?php echo $nom_site ?> a pour but de minimiser le taux de chômeurs. Un fléau dont la recherche d'un mécanisme de combat a suscité notre inspiration, et elle se concrétise dans l'objectif de rapprocher les chômeurs aux employeurs. Convaincre, gagner la confiance, sécuriser les données et autres informations est primordial.<br>Nous vous offrons la meilleur des opportunités pour mieux vous rapprocher des employeurs, de faire des demandes d'emplois selon les exigences des employeurs auprès des entreprises partenaire et employeurs personnels.</p>
 				</div>
 				<!--content 2-->
+				<!--this code is created by Josué - jose.init.dev@gmail.com-->
 				<div id="c2" style="display:none">
 					<h3><span class="fa fa-hand-o-right"></span> <b>Importance</b></h3>
 					<p>Offrir la possibilité à tous ceux qui du travail d'en trouver facilement quelque soit leur niveau de formation, partant des illétrés jusqu'aux personnes les plus diplômées, est notre but premier. Nous offrons la possiblité aux entreprises ou aux particulier cherchant des personnes, les perles rares, à embaucher de les trouver facilement.<br>Si vous cherchez du travail, ou que vous voudrez trouver des talents à embaucher, n'hésitez plus et créez un compte maintenant. Un mode premium est aussi disponible si vous voulez être au dévant de tous.</p>

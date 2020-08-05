@@ -1,6 +1,32 @@
 <?php
 //this document contient all the fonctions du site
 
+function checkImage($elt){ //check si an image is correctly uploaded
+	$i=0;
+	if ($_FILES[$elt]['size'] > 5242880) $i++; //La taille du fichier en octets.
+	if ($_FILES[$elt]['error'] > 0) $i++;   //Le code d'erreur, qui permet de savoir si le fichier a bien été uploadé.
+	$extensions_valides = array( 'jpg' , 'jpeg' , 'png' , 'gif' );
+	$extension_upload = strtolower(  substr(  strrchr($_FILES[$elt]['name'], '.')  ,1)  );
+	if (!in_array($extension_upload,$extensions_valides)) $i++;
+	if ($i==0){
+		return true;
+	}
+	return false;
+}
+
+function checkFile($elt){ //check si a file (pdf and word) is correctly uploaded
+	$i=0;
+	if ($_FILES[$elt]['size'] > 5242880) $i++; //La taille du fichier en octets.
+	if ($_FILES[$elt]['error'] > 0) $i++;   //Le code d'erreur, qui permet de savoir si le fichier a bien été uploadé.
+	$extensions_valides = array( 'pdf' , 'doc' , 'docx' );
+	$extension_upload = strtolower(  substr(  strrchr($_FILES[$elt]['name'], '.')  ,1)  );
+	if (!in_array($extension_upload,$extensions_valides)) $i++;
+	if ($i==0){
+		return true;
+	}
+	return false;
+}
+
 function notFound($text){
 	?>
 	<div class="container alert alert-dismissible" style="background:#fff; padding:50px; border:1px solid silver; border-radius:50px;">
@@ -38,8 +64,17 @@ function erreur($text){
 }
 
 function duree($date){
+//	date_default_timezone_set("UTC");
 	$tps=strtotime($date);
 	if (date('m')==date('m', $tps) and date('Y')==date('Y', $tps)){ //c'est le same mois
+		//minutes-hours
+//		if (date('i')-date('i', $tps) < 60 and date('H')-date('H', $tps) == 0){ //it's minutes
+//			return strtolower(date('i')-date('i', $tps)).' min';
+//		}
+//		else if (date('H')-date('H', $tps) < 24){ //it's hours
+//			return strtolower(date('H')-date('H', $tps)).' heures';
+//		}
+		//days
 		if (date('d')-date('d', $tps) == 0){
 			return "Ajourd'hui";
 		}
@@ -92,7 +127,7 @@ function viewsNumber($elt, $id, $viewer){
 	$vw->execute();
 	$vw->closeCursor();
 }
-
+//this code is created by Josué - jose.init.dev@gmail.com
 function passwordGenerator($length){
 	$alphas="azertyuiopqsdfghjklmwxcvbn";
 	$ALPHAS="AZERTYUIOPQSDFGHJKLMWXCVBN";
@@ -109,6 +144,26 @@ function passwordGenerator($length){
 		$password=$password.$actual[$nbr2];
 	}
 	return $password;
+}
+
+function showSuccess($mess){
+	?><div class="alert alert-success" id="ss" style="font-size:20px; position:fixed; top:20vh; left:10px; animation-name:successEx; animation-duration:1s; z-index:999;"><p style="color:#000"><?php echo $mess ?></p></div>
+	<script>
+		setInterval(function(){
+			document.getElementById('ss').style.display='none';
+		},4000);
+	</script>
+	<?php
+}
+
+function showError2($mess){
+	?><div class="alert alert-danger" id="ss" style="font-size:20px; position:fixed; top:20vh; left:10px; animation-name:successEx; animation-duration:1s; z-index:999;"><p style="color:#000"><?php echo $mess ?></p></div>
+	<script>
+		setInterval(function(){
+			document.getElementById('ss').style.display='none';
+		},4000);
+	</script>
+	<?php
 }
 
 function jobSection($Elt, $EltTxt, $type, $categorie, $cat, $groupe){
@@ -384,11 +439,12 @@ function userSection($Elt, $EltTxt, $type, $categorie, $cat, $groupe){
 						erreurWithImage("Aucun résultat trouvé <span class='fa fa-frown'></span>. Il semble qu'il n'y a rien ici pour l'instant. Essayez de filtrer en cliquand sur le bouton \"<strong>Filtrer Résultats</strong>\" ci-dessus <span class='fa fa-hand-o-up'></span>");
 					}else{
 						while ($data=$query->fetch()){
+							//this code is created by Josué - jose.init.dev@gmail.com
 							?>
 							<div class="col-lg-3 col-sm-4 col-6 product-incfhny mt-4">
 								<div class="product-grid2 transmitv">
 									<div class="product-image2 d-none d-md-block" style="border:1px solid #e3e3e3; border-radius:7px; height:210px;">
-										<a href="user-infos.php?cl=<?php echo $data['cl_id'] ?>">
+										<a>
 											<img class="pic-1 img-fluid" src="assets/images/clients/<?php echo $data['cl_photo'] ?>">
 											<img class="pic-2 img-fluid" src="assets/images/clients/<?php echo $data['cl_photo'] ?>" style="width:150%" title="<?php echo $data['cl_description'] ?>">
 										</a>
@@ -400,7 +456,7 @@ function userSection($Elt, $EltTxt, $type, $categorie, $cat, $groupe){
 										</ul>
 									</div>
 									<div class="product-image2 d-md-none" style="border:1px solid #e3e3e3; border-radius:7px; height:150px;">
-										<a href="user-infos.php?cl=<?php echo $data['cl_id'] ?>">
+										<a>
 											<img class="pic-1 img-fluid" src="assets/images/clients/<?php echo $data['cl_photo'] ?>">
 											<img class="pic-2 img-fluid" src="assets/images/clients/<?php echo $data['cl_photo'] ?>" style="width:150%" title="<?php echo $data['cl_description'] ?>">
 										</a>
@@ -412,8 +468,8 @@ function userSection($Elt, $EltTxt, $type, $categorie, $cat, $groupe){
 										</ul>
 									</div>
 									<div class="product-content" style="border:1px solid #e3e3e3; border-radius:0px 0px 7px 7px; border-top:0px;">
-										<?php if (strlen($data['cl_nom'])<=18) echo '<h3 class="title"><a href="#">'.$data['cl_nom'].'</a></h3>';
-										else echo '<h3 class="title"><a href="#">'.substr($data['cl_nom'],0,18).'...</a></h3>'; ?>
+										<?php if (strlen($data['cl_nom'])<=18) echo '<h3 class="title"><a href="user-infos.php?cl='.$data['cl_id'].'">'.$data['cl_nom'].'</a></h3>';
+										else echo '<h3 class="title"><a href="user-infos.php?cl='.$data['cl_id'].'">'.substr($data['cl_nom'],0,18).'...</a></h3>'; ?>
 										
 										<?php if ($data['cl_diplome']=='sans_diplome') echo '<i class="price" style="font-size:12px"><span class="fa fa-graduation-cap"></span> Sans Diplôme</i>';
 										else echo '<i class="price" style="font-size:12px"><span class="fa fa-graduation-cap"></span> '.substr($data['cl_niveau'],0,30).'</i>'; ?>

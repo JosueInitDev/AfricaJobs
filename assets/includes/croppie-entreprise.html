@@ -8,7 +8,7 @@
         <div id="upload-demo"></div>
         </div>
         <div class="col-md-4" style="padding:5%;">
-        <strong>Choisir photo de profile</strong>
+        <strong>Choisir photo entreprise</strong>
         <input type="file" id="image">
 		<br>
 		<br>
@@ -32,8 +32,8 @@ var resize = $('#upload-demo').croppie({
     enableExif: true,
     enableOrientation: true,    
     viewport: { // Default { width: 100, height: 100, type: 'square' } 
-        width: 200,
-        height: 200,
+        width: 300,
+        height: 100,
         type: 'square'
     },
     boundary: {
@@ -41,7 +41,7 @@ var resize = $('#upload-demo').croppie({
         height: 300
     }
 });
-//this code is created by Josué - jose.init.dev@gmail.com
+
 
 $('#image').on('change', function () { 
   var reader = new FileReader();
@@ -54,7 +54,7 @@ $('#image').on('change', function () {
     }
     reader.readAsDataURL(this.files[0]);
 });
-
+//this code is created by Josué - jose.init.dev@gmail.com
 
 $('.btn-upload-image').on('click', function (ev) {
   resize.croppie('result', {
@@ -62,7 +62,7 @@ $('.btn-upload-image').on('click', function (ev) {
     size: 'viewport'
   }).then(function (img) {
     $.ajax({
-      url: "assets/includes/croppieSave.php",
+      url: "assets/includes/croppieSave-entreprise.php",
       type: "POST",
       data: {"image":img},
       success: function (data) {
@@ -71,7 +71,7 @@ $('.btn-upload-image').on('click', function (ev) {
       }
     });
   });
-	window.location.href="././compte.php?photo-ok=true";
+	window.location.href="././compte.php?option=entreprise&ent-photo-ok=true";
 });
 
 

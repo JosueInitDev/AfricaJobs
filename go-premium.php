@@ -97,6 +97,7 @@ switch($type){
 			</div>
 		</div>
 	<?php
+	//this code is created by Josué - jose.init.dev@gmail.com
 	break;
 	default:
 		notFound("Poufff, quelle galère...");

@@ -12,16 +12,9 @@ $query->bindValue(':min', $a, PDO::PARAM_INT);
 $query->execute();
 while ($data=$query->fetch()){
 	?>
-	<div class="col-lg-2 col-md-4 col-4 welcome-image">
+	<div class="col-lg-2 col-4 welcome-image">
 		<center>
-		<div class="d-none d-md-block boxhny13" style="background-image:url('assets/images/jobs/<?php echo $data['jb_photo'] ?>'); height:160px; width:160px; border-radius:50%; background-position:center; background-size:cover;">
-			<a href="job-infos.php?jb=<?php echo $data['jb_id'] ?>">
-				<div class="boxhny-content">
-					<h3 class="title"><span class="fa fa-eye"></span> Détails</h3>
-				</div>
-			</a>
-		</div>
-		<div class="d-md-none boxhny13" style="background-image:url('assets/images/jobs/<?php echo $data['jb_photo'] ?>'); height:100px; width:100px; border-radius:50%; background-position:center; background-size:cover;">
+		<div class="boxhny13" style="background-image:url('assets/images/jobs/<?php echo $data['jb_photo'] ?>'); height:100px; width:100px; border-radius:50%; background-position:center; background-size:cover;">
 			<a href="job-infos.php?jb=<?php echo $data['jb_id'] ?>">
 				<div class="boxhny-content">
 					<h3 class="title"><span class="fa fa-eye"></span> Détails</h3>
@@ -35,15 +28,11 @@ while ($data=$query->fetch()){
 	<?php
 }
 $query->closeCursor();
+//this code is created by Josué - jose.init.dev@gmail.com
 ?>
-<div class="col-lg-2 col-md-4 col-4 welcome-image">
+<div class="col-lg-2 col-4 welcome-image">
 	<center>
-	<div class="d-none d-md-block" style="width:160px">
-		<a href="jobs.php?type=work&categorie=sans-diplome">
-			<img src="assets/images/button-cercle.jpg" class="img-fluid rounded-circle" alt="Jobs sans dilpôme" />
-		</a>
-	</div>
-	<div class="d-md-none" style="width:100px">
+	<div style="width:100px">
 		<a href="jobs.php?type=work&categorie=sans-diplome">
 			<img src="assets/images/button-cercle.jpg" class="img-fluid rounded-circle" alt="Jobs sans dilpôme" />
 		</a>

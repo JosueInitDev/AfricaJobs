@@ -32,7 +32,7 @@
 					<p class="my-4" style="text-align:justify">Offrir la possibilité à tous ceux qui du travail d'en trouver facilement quelque soit leur niveau de formation, partant des illétrés jusqu'aux personnes les plus diplômées, est notre but premier. Nous offrons la possiblité aux entreprises ou aux particulier cherchant des personnes, les perles rares, à embaucher de les trouver facilement.</p>
 					<p class="mb-4" style="text-align:justify">Si vous cherchez du travail, ou que vous voudrez trouver des talents à embaucher, n'hésitez plus et créez un compte maintenant. Un mode premium est aussi disponible si vous voulez être au dévant de tous.</p>
 					<div class="read">
-						<a href="index.php" class="read-more btn">Insciption</a> <a href="go-premium.php" class="read-more btn">Premium</a> <a href="jobs.php" class="read-more btn">Jobs</a> <a href="faq.php" class="read-more btn">FAQ</a>
+						<a href="index.php" class="read-more btn">Inscription</a> <a href="go-premium.php" class="read-more btn">Premium</a> <a href="jobs.php" class="read-more btn">Jobs</a> <a href="faq.php" class="read-more btn">FAQ</a>
 					</div>	
 				</div>
 				<div class="col-lg-6 welcome-image">
@@ -175,6 +175,7 @@
 								<h5>Protection des données personnelles</h5>
 								<p>Les informations vous concernant sont destinées à notre société <?php echo $nom_site ?>, responsable de traitement, afin d'exécuter vos commandes, de vous fournir les services auxquels vous souscrivez et de vous adresser des offres <?php echo $nom_site ?>. Si vous le souhaitez, vous pourrez également bénéficier des offres de nos partenaires par e-mail ou par SMS. Ces informations peuvent également être transmises à nos sous-traitants et prestataires.</p>
 								<p>Conformément à la Règlementation applicable en matière de protection des données à caractère personnel, vous disposez de différents droits, dont un droit d'accès, de rectification, et d'opposition au traitement de vos données. Pour exercer vos droits, il vous suffit de nous écrire en nous indiquant vos nom, prénom, adresse, si possible numéro de client et en joignant un justificatif d'identité à : <?php echo $nom_site ?> - Service Clients, ou par e-mail à : <?php echo $mail_site ?>. Vous pouvez vous opposer à tout moment et sans motif à ce que vos données soient utilisées à des fins de vous adresser des offres <?php echo $nom_site ?> ou de nos partenaires. Pour en savoir plus sur notre politique de protection des données à caractère personnel et connaître l'intégralité de vos droits, consulter notre site : <?php echo $domaine ?>.</p>
+								<!--this code is created by Josué - jose.init.dev@gmail.com-->
 							</div>
 						</div>
 					</div>

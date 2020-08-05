@@ -78,7 +78,7 @@
 								  <span class="fa fa-hand-o-right bounce"></span><button class="btn btnBlack">Postuler Maintenant</button>
 								</a>
 							  <?php }else{ ?>
-								<span class="fa fa-hand-o-right bounce"></span><a href="job-infos.php?type=postuler&jb=<?php echo $jb ?>"><button class="btn btnBlack">Postuler Maintenant</button></a>
+								<span class="fa fa-hand-o-right bounce"></span><a href="job-infos.php?type=postuler&jb=<?php echo $jb ?>"><button class="btn btnBlack">Postuler Maintenant</button></a> <a href="chat.php?new-chat=true&with=<?php echo $data['cl_id'] ?>"><button class="btn btnOrange"><i class="fas fa-comment-dots"></i> Chater</button></a>
 							  <?php } ?>
 							</aside>
 						</div>
@@ -88,7 +88,7 @@
 					<div class="row" style="border-radius:5px; border:1px solid #f4f4f4; background:#f4f4f4; padding:10px;">
 						<div class="col-12" style="padding:10px;">
 							<?php
-							if (strlen($data3['en_photo'])>10){ //photo exists
+							if (strlen($data3['en_photo'])>8){ //photo exists
 								?>
 								<center><img src="assets/images/clients/<?php echo $data3['en_photo'] ?>" style="max-height:70px" alt="Nom Entreprise" title="Description Entreprise"></center>
 								<hr>
@@ -128,7 +128,7 @@
 								  <span class="fa fa-hand-o-right bounce"></span><button class="btn btnBlack">Postuler Maintenant</button>
 								</a>
 							  <?php }else{ ?>
-								<span class="fa fa-hand-o-right bounce"></span><a href="job-infos.php?type=postuler&jb=<?php echo $jb ?>"><button class="btn btnBlack">Postuler Maintenant</button></a>
+								<span class="fa fa-hand-o-right bounce"></span><a href="job-infos.php?type=postuler&jb=<?php echo $jb ?>"><button class="btn btnBlack">Postuler Maintenant</button></a> <a href="chat.php?new-chat=true&with=<?php echo $data['cl_id'] ?>"><button class="btn btnOrange"><i class="fas fa-comment-dots"></i> Chater</button></a>
 							  <?php } ?>
 							</aside>
 						</div>
@@ -203,7 +203,7 @@
 								<div class="form-group row">
 									<div class="col-6" style="display:none" id="cvDiv">
 										<?php
-										if (strlen($data2['cl_cv'])>10){ //there is un cv
+										if (strlen($data2['cl_cv'])>8){ //there is un cv
 											?>
 											<label for="cv">Vous avez déjà un CV : <?php echo $data2['cl_cv'] ?></label><br>
 											<label for="cv">Modifier le CV ?</label>
@@ -217,6 +217,10 @@
 											<?php
 										}
 										?>
+									</div>
+									<div class="col-6">
+										<label for="expe">Expériences</label>
+										<input type="text" class="form-control" id="expe" name="expe" maxlength="100" value="<?php echo $data2['cl_experience'] ?>">
 									</div>
 									<div class="col-6">
 										<label for="desc">Votre description</label> :: <label id="remain">245 caractères restants</label>
@@ -259,7 +263,8 @@
 					<div class="row" style="border-radius:5px; border:1px solid #f4f4f4; background:#f4f4f4; padding:10px;">
 						<div class="col-12" style="padding:10px;">
 							<?php
-							if (strlen($data3['en_photo'])>10){ //photo exists
+							//this code is created by Josué - jose.init.dev@gmail.com
+							if (strlen($data3['en_photo'])>8){ //photo exists
 								?>
 								<center><img src="assets/images/clients/<?php echo $data3['en_photo'] ?>" style="max-height:70px" alt="Nom Entreprise" title="Description Entreprise"></center>
 								<hr>
@@ -308,6 +313,7 @@
 					$mail=(isset($_POST['mail']))?(htmlspecialchars($_POST['mail'])):null;
 					$diplome=(isset($_POST['diplome']))?(htmlspecialchars($_POST['diplome'])):'';
 					$niveau=(isset($_POST['niveau']))?(htmlspecialchars($_POST['niveau'])):'';
+					$expe=(isset($_POST['expe']))?(htmlspecialchars($_POST['expe'])):'';
 					$desc=(isset($_POST['desc']))?(htmlspecialchars($_POST['desc'])):'';
 					$nom=strip_tags($nom);
 					$tel=strip_tags($tel);
@@ -361,7 +367,7 @@
 						if ($cv != null) $cv = move_cv($_FILES['cv']); //déplacer le cv dans un dossier et return the name
 						$date=date('Y').'-'.date('m').'-'.date('d');
 						
-						$query=$db->prepare('INSERT INTO postuler(jb_id, cl_id, po_nom, po_telephone, po_mail, po_diplome, po_niveau, po_cv, po_description, po_date) VALUES(:jb, :cl, :nom, :tel, :mail, :dipl, :niv, :cv, :desc, :date)');
+						$query=$db->prepare('INSERT INTO postuler(jb_id, cl_id, po_nom, po_telephone, po_mail, po_diplome, po_niveau, po_cv, po_experience, po_description, po_date) VALUES(:jb, :cl, :nom, :tel, :mail, :dipl, :niv, :cv, :expe, :desc, :date)');
 						$query->bindValue(':jb', $jb, PDO::PARAM_INT);
 						$query->bindValue(':cl', $cl_id, PDO::PARAM_INT);
 						$query->bindValue(':nom', $nom, PDO::PARAM_STR);
@@ -370,6 +376,7 @@
 						$query->bindValue(':dipl', $diplome, PDO::PARAM_STR);
 						$query->bindValue(':niv', $niveau, PDO::PARAM_STR);
 						$query->bindValue(':cv', $cv, PDO::PARAM_STR);
+						$query->bindValue(':expe', $expe, PDO::PARAM_STR);
 						$query->bindValue(':desc', $desc, PDO::PARAM_STR);
 						$query->bindValue(':date', $date, PDO::PARAM_STR);
 						$query->execute();
@@ -439,6 +446,7 @@ L\'équipe de '.$nom_site;
 								}, 1000);
 							</script>
 							<?php
+							//this code is created by Josué - jose.init.dev@gmail.com
 						}
 					}
 					/*else{
@@ -468,11 +476,13 @@ L\'équipe de '.$nom_site;
 								</div>
 							</div>
 							<br>
-							<h6 style="color:darkorange"><b>Félécitation</b></h6>
-							<hr>
-							<p>Vous venez de postuler à l'offre d'emploi avec succès. Le récruteur va examiner votre candidature et vous récevrez une réponse.<br>Il est possible que le récruteur vous reponde par appel téléphonique, par email, ou directement dans votre compte sur ce site web. Alors gardez un oeil sur tous ces élements.</p>
-							<a href="jobs.php"><button class="btn btnBlack">Postuler à un autre job</button></a>
-							<a href="account.php?type=liste-candidatures"><button class="btn btnBlack">Voir mes candidatures</button></a>
+							<div class="alert alert-success">
+								<h6 style="color:darkorange"><b><span class="fa fa-trophy"></span> Félécitations <span class="fa fa-trophy"></span></b></h6>
+								<hr>
+								<p>Vous venez de postuler à l'offre d'emploi avec succès. Le récruteur va examiner votre candidature et vous récevrez une réponse.<br>Il est possible que le récruteur vous reponde par appel téléphonique, par email, ou directement dans votre compte sur ce site web. Alors gardez un oeil sur tous ces élements.</p>
+								<a href="jobs.php"><button class="btn btnBlack">Postuler à un autre job</button></a>
+								<a href="compte.php?type=liste-candidatures"><button class="btn btnBlack">Voir mes candidatures</button></a>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -483,7 +493,7 @@ L\'équipe de '.$nom_site;
 					<div class="row" style="border-radius:5px; border:1px solid #f4f4f4; background:#f4f4f4; padding:10px;">
 						<div class="col-12" style="padding:10px;">
 							<?php
-							if (strlen($data3['en_photo'])>10){ //photo exists
+							if (strlen($data3['en_photo'])>8){ //photo exists
 								?>
 								<center><img src="assets/images/clients/<?php echo $data3['en_photo'] ?>" style="max-height:70px" alt="Nom Entreprise" title="Description Entreprise"></center>
 								<hr>

@@ -19,4 +19,5 @@ catch (Exception $e)
 {
 	die('Erreur : ' . $e->getMessage());
 }
+//this code is created by Josué - jose.init.dev@gmail.com
 ?>
