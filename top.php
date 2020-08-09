@@ -88,7 +88,7 @@ if (isset($_SESSION['cl_id']) and isset($_SESSION['cl_nom'])){
 		include('assets/includes/functions.php');
 		?>
 		<section class="w3l-banner-slider-main inner-pagehny">
-		  <div class="breadcrumb-infhny">
+		  <div class="breadcrumb-infhny" style="padding-top:0px;">
 			<div class="top-header-content">
 			  <header class="tophny-header">
 				<div class="container-fluid">
@@ -100,25 +100,27 @@ if (isset($_SESSION['cl_id']) and isset($_SESSION['cl_nom'])){
 					<!--//left-->
 					<!--right-->
 					<!--icons top only screen md, lg and xl-->
-					<ul class="list-inline" style="position:absolute; right:10px; top:inherit;">
+					<ul class="list-inline" style="position:absolute; right:10px; top:10px;">
+					  <?php if ($cl_id<=0){ ?>
 					  <li class="list-inline-item button-log usernhy">
-						  <?php if ($cl_id<=0){ ?>
-							<a class="btn-open" href="#" style="width:25px; color:#fff;">
-							  <span class="fa fa-user" aria-hidden="true" title="Connectez-vous à votre compte"></span>
-							</a>
-						  <?php }else{ ?>
-							<a href="compte.php">
-							  <?php
-							  $clphoto=$db->prepare('SELECT cl_photo FROM clients WHERE cl_id=:id');
-							  $clphoto->bindValue(':id', $cl_id, PDO::PARAM_INT);
-							  $clphoto->execute();
-							  $clphoto=$clphoto->fetch();
-							  $clphoto=$clphoto['cl_photo'];
-							  echo '<img src="assets/images/clients/'.$clphoto.'" class="img-fluid rounded-circle" title="Accéder à mon compte" style="width:30px">';
-							  ?>
-							</a>
-						  <?php } ?>
+						<a class="btn-open" href="#" style="width:25px; color:#fff;">
+						  <span class="fa fa-user" aria-hidden="true" title="Connectez-vous à votre compte"></span>
+						</a>
 					  </li>
+					  <?php }else{ ?>
+					  <li class="list-inline-item">
+						<a href="compte.php">
+						  <?php
+						  $clphoto=$db->prepare('SELECT cl_photo FROM clients WHERE cl_id=:id');
+						  $clphoto->bindValue(':id', $cl_id, PDO::PARAM_INT);
+						  $clphoto->execute();
+						  $clphoto=$clphoto->fetch();
+						  $clphoto=$clphoto['cl_photo'];
+						  echo '<img src="assets/images/clients/'.$clphoto.'" class="img-fluid rounded-circle" title="Accéder à mon compte" style="width:30px">';
+						  ?>
+						</a>
+					  </li>
+					  <?php } ?>
 					  <li class="list-inline-item dropdown-menu2"><!----notifications------->
 						  <?php
 						  //------1
@@ -169,7 +171,8 @@ if (isset($_SESSION['cl_id']) and isset($_SESSION['cl_nom'])){
 					  <li class="list-inline-item transmitvcart galssescart2 cart cart box_1">
 						  <a href="jobs.php#work">
 						  <button class="top_transmitv_cart" type="submit" name="submit" value="">
-								Travailler
+								<span class="d-none d-md-block" style="font-size:18px">Travailler</span>
+								<span class="d-md-none" style="font-size:11px">Travailler</span>
 							  	<span class="fa fa-suitcase"></span>
 						  </button>
 						  </a>
@@ -177,7 +180,8 @@ if (isset($_SESSION['cl_id']) and isset($_SESSION['cl_nom'])){
 					  <li class="list-inline-item transmitvcart galssescart2 cart cart box_1">
 						  <a href="jobs.php#hire">
 						  <button class="top_transmitv_cart" type="submit" name="submit" value="">
-								Embaucher
+								<span class="d-none d-md-block" style="font-size:18px">Embaucher</span>
+								<span class="d-md-none" style="font-size:11px">Embaucher</span>
 							  	<span class="fa fa-building"></span>
 						  </button>
 						  </a>
@@ -271,6 +275,7 @@ if (isset($_SESSION['cl_id']) and isset($_SESSION['cl_nom'])){
 					</ul>
 					  */ ?>
 					<!--//icons top only pour phone and tablettes-->
+					  <p class="d-md-none"><br></p>
 					<!--//right-->
 					<div class="overlay-login text-left">
 					  <button type="button" class="overlay-close1">

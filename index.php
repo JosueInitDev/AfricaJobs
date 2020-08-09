@@ -71,17 +71,18 @@ include('top.php');
 	<!--//banner-slider-->
 	<!--//banner-slider-->
 	<div class="right-banner">
-		<div class="right-1" style="padding-top: 0px;">
+		<div class="right-1" style="padding-top: 35px;">
 			<div class="container">
 				<div class="row">
 					<div class="col-12">
+					  <?php if ($cl_id<=0){ //not connected ?>
 					  <div class="wrap" style="opacity:0.8">
 						  <h5 style="color:#fff; font-size:20px; text-align:center;">Trouvez un job maintenant</h5>
 						  <h5 style="color:#fff; font-size:15px; text-align:center;">En créant un compte</h5>
 						<div class="login-bghny p-md-5 p-4 mx-auto mw-100">
 						  <form action="sign-up.php" method="post">
 							<div class="form-group">
-							  <p class="login-texthny mb-2">Numéro de téléphone ou email</p>
+							  <p class="login-texthny mb-2">Téléphone ou email</p>
 							  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
 								placeholder="Ex: 05181818" name="numMail" required="">
 							</div>
@@ -96,6 +97,15 @@ include('top.php');
 						  </form>
 						</div>
 					  </div>
+					  <?php }else{ //connected ?>
+						<div class="wrap" style="opacity:0.8">
+							<center>
+							<h5 class="d-md-none" style="color:#fff; font-size:15px; text-align:center;">Mettez votre offre d'emploi en ligne et trouvez l'employé qu'il vous faut.</h5>
+							<h5 class="d-none d-md-block">Mettez votre offre d'emploi en ligne et trouvez l'employé qu'il vous faut.</h5>
+							<a href="add-job.php"><button class="btn btnOrange"><i class="fa fa-plus"></i> Ajouter un job</button></a>
+							</center>
+						</div>
+					  <?php } ?>
 					</div>
 				</div>
 			</div>

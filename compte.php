@@ -1101,12 +1101,28 @@ switch($type){
 		<?php
 	break;
 		
-	case 'deco': //cas de deconnexion 1/2 (2/2 in footer)
+	case 'deco': //cas de deconnexion 1/2
 		$_SESSION['cl_nom']=$nom_site;
 		$_SESSION['cl_id']=0;
 		?>
-		<script type="text/javascript">location.href = 'index.php?deco-ok=1';</script>
+		<script type="text/javascript">location.href = 'compte.php?type=deco-ok';</script>
 		<?php
+	break;
+		
+	case 'deco-ok': //cas de deconnexion 2/2
+		?><script type="text/javascript">location.href = 'index.php?deco=true';</script><?php
+	break;
+		
+	case 'photo-edited': //after editing photo, we must redirect so server can reload the one on the website
+		if (isset($_GET['clp'])){
+			?><script>window.location.href="compte.php?photo-ok=true"</script><?php
+		}
+		else if (isset($_GET['entp'])){
+			?><script>window.location.href="compte.php?option=entreprise&ent-photo-ok=true"</script><?php
+		}
+		else if (isset($_GET['jobp'])){
+			?><script>window.location.href="compte.php?option=candidatures&job-photo-ok=true"</script><?php
+		}
 	break;
 		
 	default:
@@ -1153,17 +1169,18 @@ if (isset($_GET['job-photo-ok'])){
 	/*----spinner----*/
 	.loader {
 		display: none;
-		position: absolute;
-		top: 40%;
-		left: 30%;
-		border: 16px solid #f3f3f3;
+		position: fixed;
+		top: 40vh;
+		left: 45%;
+		border: 7px solid #f3f3f3;
 		border-radius: 50%;
-		border-top: 16px solid darkorange;
-		border-bottom: 16px solid darkorange;
-		width: 120px;
-		height: 120px;
+		border-top: 7px solid darkorange;
+		border-bottom: 7px solid darkorange;
+		width: 70px;
+		height: 70px;
 		-webkit-animation: spin 2s linear infinite;
 		animation: spin 2s linear infinite;
+		z-index: 9999;
 	}
 
 	@-webkit-keyframes spin {

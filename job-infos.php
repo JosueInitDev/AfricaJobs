@@ -72,15 +72,17 @@
 							<hr>
 							<p style="text-align: justify"><?php echo $data['jb_description'] ?></p>
 
-							<aside class="button-log usernhy">
-							  <?php if ($cl_id<=0){ ?>
-								<a class="btn-open" href="#" >
-								  <span class="fa fa-hand-o-right bounce"></span><button class="btn btnBlack">Postuler Maintenant</button>
-								</a>
-							  <?php }else{ ?>
-								<span class="fa fa-hand-o-right bounce"></span><a href="job-infos.php?type=postuler&jb=<?php echo $jb ?>"><button class="btn btnBlack">Postuler Maintenant</button></a> <a href="chat.php?new-chat=true&with=<?php echo $data['cl_id'] ?>"><button class="btn btnOrange"><i class="fas fa-comment-dots"></i> Chater</button></a>
-							  <?php } ?>
-							</aside>
+						  <?php if ($cl_id<=0){ ?>
+						  <aside class="button-log usernhy">
+							<a class="btn-open" href="#" >
+							  <span class="fa fa-hand-o-right bounce"></span><button class="btn btnBlack">Postuler Maintenant</button>
+							</a>
+						  </aside>
+						  <?php }else{ ?>
+						  <aside>
+							<span class="fa fa-hand-o-right bounce"></span><a href="job-infos.php?type=postuler&jb=<?php echo $jb ?>"><button class="btn btnBlack">Postuler Maintenant</button></a> <a href="chat.php?new-chat=true&with=<?php echo $data['cl_id'] ?>"><button class="btn btnOrange"><i class="fas fa-comment-dots"></i> Chater</button></a>
+						  </aside>
+						  <?php } ?>
 						</div>
 					</div>
 				</div>
@@ -122,15 +124,17 @@
 							<p><span class="fa fa-info"></span> <?php echo $data3['en_description'] ?></p>
 							<p><span class="fa fa-map-marker"></span> <?php echo $data3['en_pays'] ?> <span class="fa fa-arrow-right"></span> <?php echo $data3['en_ville'] ?></p>
 
-							<aside class="button-log usernhy">
-							  <?php if ($cl_id<=0){ ?>
-								<a class="btn-open" href="#" >
-								  <span class="fa fa-hand-o-right bounce"></span><button class="btn btnBlack">Postuler Maintenant</button>
-								</a>
-							  <?php }else{ ?>
-								<span class="fa fa-hand-o-right bounce"></span><a href="job-infos.php?type=postuler&jb=<?php echo $jb ?>"><button class="btn btnBlack">Postuler Maintenant</button></a> <a href="chat.php?new-chat=true&with=<?php echo $data['cl_id'] ?>"><button class="btn btnOrange"><i class="fas fa-comment-dots"></i> Chater</button></a>
-							  <?php } ?>
-							</aside>
+						  <?php if ($cl_id<=0){ ?>
+						  <aside class="button-log usernhy">
+							<a class="btn-open" href="#" >
+							  <span class="fa fa-hand-o-right bounce"></span><button class="btn btnBlack">Postuler Maintenant</button>
+							</a>
+						  </aside>
+						  <?php }else{ ?>
+						  <aside>
+							<span class="fa fa-hand-o-right bounce"></span><a href="job-infos.php?type=postuler&jb=<?php echo $jb ?>"><button class="btn btnBlack">Postuler Maintenant</button></a> <a href="chat.php?new-chat=true&with=<?php echo $data['cl_id'] ?>"><button class="btn btnOrange"><i class="fas fa-comment-dots"></i> Chater</button></a>
+						  </aside>
+						  <?php } ?>
 						</div>
 					</div>
 				</div>
@@ -389,6 +393,7 @@
 						else{ //success
 							//echo $cv;
 							//---------------send smtp mail au récruteur et à celui qui a postuler----------
+							/*
 							ini_set("include_path", '/home6/occazen/php:' . ini_get("include_path") );
 							require_once "Mail.php";
 							
@@ -431,6 +436,7 @@ L\'équipe de '.$nom_site;
 							 } else {
 							  	$message = "Mail envoyé avec succèss !";
 							 }
+							*/
 							//---------------//send smtp mail au récruteur et à celui qui a postuler----------
 							?>
 							<div class="alert alert-success">Candidature envoyée <span class="fas fa-grin-wink"></span>. Veuillez patientez un instant svp. <b id="tpsR"></b></div>

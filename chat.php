@@ -102,15 +102,14 @@ if (isset($_GET['new-chat'])){
 					<hr>
 					<!--------input mess//----------->
 					<div class="row" style="margin:0px">
-						<div class="col-1 col-md-3">
+						<div class="d-none d-sm-block col-sm-1 col-md-3">
 							<p></p>
 						</div>
-						<form method="post" class="col-10 col-md-8">
+						<form method="post" class="col-10 col-sm-9 col-md-8">
 							<input type="text" id="tapMess" name="mess" maxlength="255" autofocus placeholder="Message + entrer pour envoyer" oninput="isTaping()" onblur="stopTaping()" style="width:100%; float:right; border:0px; border-bottom:7px solid rgba(255,153,23,0.5); background:rgba(255,153,23,0.2); padding:8px; text-align:right; font-family: 'Roboto'; font-size:16px; padding-right:9px; border-radius:15px;">
 							<input type="hidden" name="clid" value="<?php echo $cl_id ?>">
 							<button type="submit" id="myBtn" style="display:none">Go</button>
 						</form>
-
 						<div class="dropdown col-1">
 						  <h2 class="far fa-grin" style="color:orange"></h2>
 						  <div class="dropdown-content">

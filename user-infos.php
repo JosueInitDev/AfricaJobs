@@ -66,15 +66,18 @@
 								<div class="col-4 col-md-3">
 									<div class="row">
 										<div class="col-12" style="padding:10px; background:#f4f4f4; border-right:10px solid #000;">
-											<aside class="button-log usernhy">
-											  <?php if ($cl_id<=0){ ?>
-												<a class="btn-open" href="#" >
-												  <span class="fa fa-hand-o-right bounce"></span><button class="btn btnBlack" title="Prénez les contacts de la personne">Embaucher</button>
-												</a>
-											  <?php }else{ ?>
-												<span class="fa fa-hand-o-right bounce"></span><a href="user-infos.php?type=hire&cl=<?php echo $cl ?>"><button class="btn btnBlack" title="Prénez les contacts de la personne">Embaucher</button></a>
-											  <?php } ?>
-											</aside>
+											
+										  <?php if ($cl_id<=0){ ?>
+										  <aside class="button-log usernhy">
+											<a class="btn-open" href="#" >
+											  <span class="fa fa-hand-o-right bounce"></span><button class="btn btnBlack" title="Prénez les contacts de la personne">Embaucher</button>
+											</a>
+										  </aside>
+										  <?php }else{ ?>
+										  <aside>
+											<span class="fa fa-hand-o-right bounce"></span><a href="user-infos.php?type=hire&cl=<?php echo $cl ?>"><button class="btn btnBlack" title="Prénez les contacts de la personne">Embaucher</button></a>
+										  </aside>
+										  <?php } ?>
 											
 											<hr>
 											<?php if ($data['cl_diplome']=='sans_diplome') echo '<p><span class="fas fa-user-graduate"></span> <b>Diplôme</b>: Non Diplômé</p>';
@@ -115,15 +118,17 @@
 									<hr>
 									<hr>
 									
-									<aside class="button-log usernhy">
-									  <?php if ($cl_id<=0){ ?>
-										<a class="btn-open" href="#" >
-										  <span class="fa fa-hand-o-right bounce"></span><button class="btn btnBlack" title="Prénez les contacts de la personne">Embaucher</button>
-										</a>
-									  <?php }else{ ?>
-										<span class="fa fa-hand-o-right bounce"></span><a href="user-infos.php?type=hire&cl=<?php echo $cl ?>"><button class="btn btnBlack" title="Prénez les contacts de la personne">Embaucher</button></a>
-									  <?php } ?>
-									</aside>
+								  <?php if ($cl_id<=0){ ?>
+								  <aside class="button-log usernhy">
+									<a class="btn-open" href="#" >
+									  <span class="fa fa-hand-o-right bounce"></span><button class="btn btnBlack" title="Prénez les contacts de la personne">Embaucher</button>
+									</a>
+								  </aside>
+								  <?php }else{ ?>
+								  <aside>
+									<span class="fa fa-hand-o-right bounce"></span><a href="user-infos.php?type=hire&cl=<?php echo $cl ?>"><button class="btn btnBlack" title="Prénez les contacts de la personne">Embaucher</button></a>
+								  </aside>
+								  <?php } ?>
 								</div>
 							</div>
 						</div>

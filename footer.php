@@ -1,11 +1,3 @@
-<!-----disconnect (2/2) -- 1/2 in compte.php----->
-<?php
-if (isset($_GET['deco-ok'])){
-	?><script type="text/javascript">location.href = 'index.php?deco=true';</script><?php
-}
-?>
-<!-----//disconnect (2/2) -- 1/2 in compte.php----->
-
 <!-------------direct chat------------->
 <div class="dropdownChat">
 	<img class="iconChat" src="assets/images/chat.png">

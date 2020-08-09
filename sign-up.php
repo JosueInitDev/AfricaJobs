@@ -561,27 +561,25 @@ switch($type){
 								</form>
 								<hr>
 
-								<form class="row" method="post" action="sign-up.php?type=nouveau&option=fin" enctype="multipart/form-data">
-									<div class="form-group col-12">
-										<label for="photo"><span class="fa fa-user"></span> Photo de profile</label>
-										<?php include('assets/includes/croppie.html'); ?>
-	<!--									<iframe src="assets/includes/croppie.html" style="border:none; height:100%;"></iframe>-->
-	<!--									<input type="file" class="form-control" id="photo" name="photo" >-->
-									</div>
-									<div class="form-group col-12">
-										<label for="photoEntreprise"><span class="fa fa-building"></span> Photo de votre entreprise/société</label>
-										<?php include('assets/includes/croppie.html'); ?>
-	<!--									<input type="file" class="form-control" id="photoEntreprise" name="photoEntreprise" >-->
-									</div>
-									<div class="form-group col-6">
-										<label for="cv"><span class="fa fa-file"></span> Votre CV</label>
-										<input type="file" class="form-control" id="cv" name="cv" >
-									</div>
-									<div class="from-group col-12">
-										<input type="hidden" name="next" value="true">
-										<button type="submit" class="btn btnBlack btn-lg">Terminer <span class="fa fa-check-circle"></span></button>
-									</div>
-								</form>
+								<div class="col-12">
+									<label for="photo"><span class="fa fa-user"></span> Photo de profile</label>
+									<?php include('assets/includes/croppie.html'); ?>
+									<hr>
+								</div>
+								<div class="col-12">
+									<?php if ($_SESSION['userRole']=="recruteur"){
+										?>
+										<label for="entP"><span class="fa fa-file"></span> Photo entreprise</label><br>
+										<a href="compte.php?type=edit-ent-photo"><button class="btn btnBlack">Ajouter</button></a><br>
+										<hr>
+										<?php
+									} ?>
+								</div>
+								<div class="col-12">
+									<label for="cv"><span class="fa fa-file"></span> Ajouter un CV</label><br>
+									<a href="compte.php?type=edit-cv"><button class="btn btnBlack">Ajouter</button></a><br>
+									<hr>
+								</div>
 								<?php
 							}
 							else{

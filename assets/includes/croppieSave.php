@@ -8,6 +8,7 @@ list(, $image) = explode(',',$image);
 
 $image = base64_decode($image);
 $image_name = time().'.png';
+$image_name = 'jo'.$image_name;
 file_put_contents('../images/clients/'.$image_name, $image);
 
 //save into data base
