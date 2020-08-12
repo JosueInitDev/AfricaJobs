@@ -138,7 +138,19 @@
 						</div>
 						<div id="collapse1" class="collapse hide" data-parent="#termes-conditions">
 							<div class="card-body" style="text-align:justify">
-								<p>Lorem sint occaecat non proident, sunt in culpa quis. Phasellus lacinia id erat eu ullamcorper. Nunc id ipsum fringilla, gravida felis vitae. Phasellus lacinia id, sunt in culpa quis. Phasellus lacinia.</p>
+								<p>Lorsque vous utilisez nos services, vous nous faites confiance pour le traitement de vos informations. Nous savons qu'il s'agit d'une lourde responsabilité, c'est pourquoi nous nous efforçons de les protéger, nous multiplions les efforts pour nous assurer que l'information soumise demeure privée et qu'elle ne soit employée que pour des usages précis. Les présentes règles visent à vous indiquer quelles informations nous collectons et pour quelles raisons, ainsi que la façon de les mettre à jour, de les gérer, de les exporter et de les supprimer.<br><br>
+								
+								<b>Concernant tout nos visiteurs :</b><br>
+								De façon générale nous recueillons des informations sur nos visiteurs dans leurs ensemble, c'est-à-dire que nous cherchons à savoir quelles section et quelles services sont les plus utilisés. Ces informations nous aides à déterminer les besoins de nos utilisateurs afin de contribuer à leurs offrir une expérience toujours plus enrichissante. Nous pouvons partager certains informations avec nos partenaires si necessaires. Pour que ces derniers aient une idée sur l'utilisation du site et apportent des améliorations si possible.<br><br>
+								
+								<b>Les informations qui vous concernent plus particulier :</b><br>
+								Dans certains cas, comme lorsque vous vous abonnez à un service nous aurons besoin de plus d'informations sur vous. Par exemple votre -nom, e-mails etc-. Si vous nous fournissez ces informations nous serons en mesure de vous tenir compte de nouveaux services et de tout type de modification afin de rendre vos services toujours plus agréable.<br><br>
+								
+								<b>Vos informations sont-elles divulguées ?</b><br>
+								Nous ne divulgons par d'information direct sur nos sites sauf si un embaucheur cherche à vous embaucher. Nous lui fournissons alors votre nom, cv, email, numéro de téléphone et lui permet d'entrer en chat avec vous sur notre site web. Nous rappelons que nous ne sommes pas responsables des informations fournies par les clients qu'elles soient fausses ou exactes.<br><br>
+								
+								<b>Concernant les CV :</b><br>
+								Puisque ce site est un site d'emploi vous avez l'occasion d'enregistrer votre CV dans la base de données, vous enregistrez votre CV dans notre base de données, mais nous ne le rendons pas consultable par n'importe qui sauf au cas où l'on veut vous recruter ou si nous vous espionons pour fauses informations. Vous pouvez retirer votre CV et même supprimer votre compte a tout moment. Nous ferrons tout ce qui est à notre disposition pour vous garantir le meilleur de nous même.</p>
 							</div>
 						</div>
 					</div>
@@ -155,7 +167,14 @@
 						</div>
 						<div id="collapse2" class="collapse hide" data-parent="#confidentialite">
 							<div class="card-body" style="text-align:justify">
-								<p>Lorem sint occaecat non proident, sunt in culpa quis. Phasellus lacinia id erat eu ullamcorper. Nunc id ipsum fringilla, gravida felis vitae. Phasellus lacinia id, sunt in culpa quis. Phasellus lacinia.</p>
+								<p>Pour rendre plus intéressant votre visite sur notre site nous utilisons une fonction de votre navigateur appelé cookies pour garder en mémoire les utilisations et les préférences, repérer les chemins que vous empruntez ainsi que pour assurer l'équilibrage des lignes. Notre utilisation des cookies nous permettent d'offrir un service plus rapide, des résultats toujours à jour et une expérience plus personnalisé.<br><br>
+								
+								<b>Vos commentaires</b>
+								Le site à aménager un espace où vous pouvez donner vos commentaires ils deviennent alors les priorités du site. Nous pouvons utiliser ces commentaires comme vos témoignages, à des fins de marketing ou pour communiquer également.<br><br>
+								
+								<b>Concernant les modifications (de la confidentialité)</b><br>
+								Les décisions reviennent à nous concernent les changements des termes de nos obligations de confidentialité, vous saurez toujours quels types d'information nous ajouterons et pourquoi. Pour d'autres préoccupations envoyé nous un mail à <?php echo $mail_site ?><br>
+								Merci d'utiliser notre site, nous continuerons à améliorer nos services pour mériter votre confiance.</p>
 							</div>
 						</div>
 					</div>

@@ -137,7 +137,7 @@
 					<div class="features4-grid-inn" style="border:1px solid #FFE0B2" onclick="displayC('c8')">
 						<span class="fa fa-sign-in icon-fea4" aria-hidden="true"></span>
 						<h5><a href="#URL">Connexion</a></h5>
-						<p>J'arrive pas à me connecter</p>
+						<p>J'arrive pas à me connecter, mot de passe oublié</p>
 					</div>
 				</div>
 				<div class="col-lg-3 col-6 features4-grid">
@@ -202,7 +202,10 @@
 				<!--content 5-->
 				<div id="c5" style="display:none">
 					<h3><span class="fa fa-hand-o-right"></span> <b>Mode Premium</b></h3>
-					<p>4 Promouvoir</p>
+					<p>Le mode premium étant une fonctionnalité principale de ce site qui a pour objectif de vous faire bénéficier de l'accès à toutes les fonctionnalités du site. Sa nécessité est le fait qu'un utilisateur, en principe étant en possession de chance limité pour acquérir la fiabilité et la satisfaction de nos services, ce mode s'infiltre alors pour donner aux clients une satisfaction évolutive suivant les différents modes premium sont offerts.<br>
+					<b>Est il nécessaire ?</b><br>
+					Notre système est doté d'une capacité à booster votre profile (vous faire apparaître fréquemment aux yeux des embaucheurs). Ce qui vous donne plus de chance d'être recruté. Il en est de même pour les propositions d'emploi. Ce mode regorge bien d'autres avantages qui vous sont offerts.<br>
+					<a href="go-premium.php">En savoir plus <b style="color:darkorange">ici</b></a>.</p>
 				</div>
 				<!--content 6-->
 				<div id="c6" style="display:none">
@@ -241,12 +244,12 @@
 				<!--content 8-->
 				<div id="c8" style="display:none">
 					<h3><span class="fa fa-hand-o-right"></span> <b>Connexion</b></h3>
-					<p>4 Promouvoir</p>
+					<p>Pour vous connecter à votre compte et profiter de nos services, il vous suffis de renseigner vos coordonnées "<b>numérode téléphone ou adresse email</b>" et votre "<b>mot de passe</b>". En cas d'<strong>oubli du mot de passe</strong>, <a href="sign-up.php?type=recuperation">cliquez ici</a>. Pour d'autres types de préoccupation sur notre plateforme concernant la connexion, faites nous un rapport dans le quel vous exposez le problème. Nous vous remercions de votre amabilité.</p>
 				</div>
 				<!--content 9-->
 				<div id="c9" style="display:none">
 					<h3><span class="fa fa-hand-o-right"></span> <b>Remboursement</b></h3>
-					<p>4 Promouvoir</p>
+					<p>Nous vous remboursons si vous annulez un service. Nous vous remboursons aussi dans le cas où vous supprimé votre compte alors le mode premium acheté n'a pas encore été utilisé. Pour tout remboursement, veuillez nous adresser un mail à <?php echo $mail_site ?> ou via <a href="contact.php#form">ce lien</a>.</p>
 				</div>
 				<!--content 10-->
 				<div id="c10" style="display:none">

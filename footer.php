@@ -165,11 +165,11 @@ if (isset($_GET['connectNotTM'])){
 	session_destroy();
 	showError2('Téléphone/Email invalide.');
 }
-if (isset($_GET['mdpError'])){
+else if (isset($_GET['mdpError'])){
 	session_destroy();
 	showError2('Mot de passe invalide. L\'avez-vous oublié ?');
 }
-if (isset($_GET['connected'])){
+else if (isset($_GET['connected'])){
 	session_destroy();
 	showSuccess("Connection avec succès. Heureux de vous revoir <b>".$cl_nom."</b> <i class='far fa-grin'></i>");
 }

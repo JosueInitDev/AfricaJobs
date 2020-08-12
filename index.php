@@ -4,7 +4,7 @@ include('top.php');
 ?>
 <div class="bannerhny-content">
 	<!--/banner-slider-->
-	<div class="content-baner-inf d-none d-sm-block">
+	<div class="content-baner-inf d-none d-md-block">
 		<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 			<ol class="carousel-indicators">
 				<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -214,6 +214,7 @@ include('top.php');
 							<p>Retrouvez tous les types de jobs ou des personnes à embaucher.</p>
 							<a href="jobs.php?type=work&categorie=sans-diplome" class="read-more btn">Les Jobs</a>
 							<a href="jobs.php?type=hire&categorie=sans-diplome" class="read-more btn">Les emplyés</a>
+							<a href="add-job.php" class="read-more btn">Ajouter job</a>
 					</div>
 					<div class="photo-6-inf-left col-lg-6">
 							<img src="assets/images/1.jpg" class="img-fluid" alt="">

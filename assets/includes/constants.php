@@ -1,6 +1,6 @@
 <?php
 //cette page contient les constantes du site
-$nom_site = "Africa Jobs";
+$nom_site = "Lambda";
 
 $domaine_extension = ".net";
 
