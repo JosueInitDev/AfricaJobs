@@ -546,4 +546,33 @@ function userSection($Elt, $EltTxt, $type, $categorie, $cat, $groupe){
 	</section>
 	<?php
 }
+
+function sendSupportMail($sujet, $corp, $to){
+	ini_set("include_path", '/home6/occazen/php:' . ini_get("include_path") );
+	require_once "Mail.php";
+
+	$subject = $sujet;
+	$from=$nom_site." <contact@jobs.occaze.net>";
+	$body = $corp;
+	$host = "ssl://mail.occaze.net";
+	$port = "465";
+	$username = "contact@jobs.occaze.net";
+	$password = "password here";
+	$headers = array ('From' => $from,
+	'To' => $to, 
+	'Subject' => $subject);
+	$smtp = Mail::factory('smtp',
+	array ('host' => $host,
+	'port' => $port,
+	'auth' => true,
+	'username' => $username,
+	'password' => $password));
+	$mail = $smtp->send($to, $headers, $body);
+	if (PEAR::isError($mail)) {
+		$message = $mail->getMessage();
+		return $message;
+	} else {
+		return "Mot de passe mis à jour avec succès. Consultez vos mails pour avoir le nouveau mot de passe.";
+	}
+}
 ?>

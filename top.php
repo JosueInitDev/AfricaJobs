@@ -82,8 +82,10 @@ if (isset($_SESSION['cl_id']) and isset($_SESSION['cl_nom'])){
         ?>
 	</head>
 	<body>
-<!--	<body onload="pageLoading()">-->
 		<?php
+		if (session_status() != PHP_SESSION_ACTIVE) {
+			session_start();
+		}
 		include('assets/includes/identifiants.php');
 		include('assets/includes/functions.php');
 		?>
@@ -139,6 +141,22 @@ if (isset($_SESSION['cl_id']) and isset($_SESSION['cl_nom'])){
 						  $notifs->execute();
 						  $nbr3=$notifs->fetchcolumn();
 						  
+						  //----------notif sound----------
+						  if (isset($_SESSION['notifs'])){
+							  $a = (int) $_SESSION['notifs'];
+							  //echo $a;
+							  if ($a < $nbr+$nbr2+$nbr3){ //there is new notif
+								  ?>
+						  		  <audio src="assets/images/notif.mp3" style="display:none" autoplay></audio>
+						  		  <?php
+								  showSuccess('<i class="fa fa-bell"></i> Novelle notification');
+								  $_SESSION['notifs']=$nbr+$nbr2+$nbr3; //will let us know when to play notif sound
+							  }
+						  }else{
+							  $_SESSION['notifs']=0;
+						  }
+						  //----------//notif sound----------
+						  
 						  if ($nbr+$nbr2+$nbr3 <= 0){ //0 notif
 							  	?><button class="menu-btn"><span class="fa fa-bell-slash"></span></button>
 								<div class="menu-content">
@@ -171,18 +189,16 @@ if (isset($_SESSION['cl_id']) and isset($_SESSION['cl_nom'])){
 					  <li class="list-inline-item transmitvcart galssescart2 cart cart box_1">
 						  <a href="jobs.php#work">
 						  <button class="top_transmitv_cart" type="submit" name="submit" value="">
-								<span class="d-none d-md-block" style="font-size:18px">Travailler</span>
-								<span class="d-md-none" style="font-size:11px">Travailler</span>
-							  	<span class="fa fa-suitcase"></span>
+								<span class="d-none d-md-block" style="font-size:18px">Travailler <i class="fa fa-suitcase"></i></span>
+								<span class="d-md-none" style="font-size:11px">Travailler <i class="fa fa-suitcase"></i></span>
 						  </button>
 						  </a>
 					  </li>
 					  <li class="list-inline-item transmitvcart galssescart2 cart cart box_1">
 						  <a href="jobs.php#hire">
 						  <button class="top_transmitv_cart" type="submit" name="submit" value="">
-								<span class="d-none d-md-block" style="font-size:18px">Embaucher</span>
-								<span class="d-md-none" style="font-size:11px">Embaucher</span>
-							  	<span class="fa fa-building"></span>
+								<span class="d-none d-md-block" style="font-size:18px">Embaucher <i class="fa fa-building"></i></span>
+								<span class="d-md-none" style="font-size:11px">Embaucher <i class="fa fa-building"></i></span>
 						  </button>
 						  </a>
 					  </li>

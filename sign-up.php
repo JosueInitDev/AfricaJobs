@@ -727,7 +727,110 @@ switch($type){
 		}
 	break;
 	case 'recuperation': //mdp oublé
-		
+		?>
+		<div class="container" style="margin-top:6vw; margin-bottom:6vw;">
+			<div class="row">
+				<div class="col-12">
+					<center><h1>Récuperer mon <span style="color:darkorange">mot de passe</span></h1></center>
+					<hr>
+				</div>
+				<?php
+				if (isset($_GET['form'])){
+					if (!isset($_GET['mailLink'])){
+						//mailLink : pour recuperer son mot de passe, un lien est envoyé par mail, quand le client clique dessus, un nouveau mot de passe est fournie et l'ancien remplacé.
+						?>
+						<div class="col-12">
+							<?php
+							$numMail=(isset($_POST['numMail']))?(htmlspecialchars($_POST['numMail'])):'';
+							$numMail=strip_tags($numMail);
+							$query=$db->prepare('SELECT COUNT(*) FROM clients WHERE cl_mail=:m');
+							$query->bindValue(':m', $numMail, PDO::PARAM_STR);
+							$query->execute();
+							$nbr=$query->fetchcolumn();
+							if ($nbr<=0){
+								erreurWithImage('Désolé, cette adresse mail ou téléphone n\'existe pas.');
+							}else{
+								$query=$db->prepare('SELECT cl_id FROM clients WHERE cl_mail=:m');
+								$query->bindValue(':m', $numMail, PDO::PARAM_STR);
+								$query->execute();
+								$clid=$query->fetch();
+								
+								$sujet="Récuperer mot de passe :: ".$nom_site;
+								$to=$numMail;
+								$corp="Bonjour cher client(e),
+
+Vous avez fait une dédmande de récuperation de votre mot de passe. Si cette demande ne vient pas de vous, veuillez ignorer ce mail.
+
+Pour récuperer votre mot de passe, veuillez cliquer sur le lien suivant : https://".$domaine."?sign-up.php?type=recuperation&form=true&mailLink=true&none=".$clid['cl_id']."&value=fjd45
+
+Cordialement,
+A bientôt sur ".$nom_site."
+Equipe support client";
+								$to=$numMail;
+								//echo $corp;
+								//--envoie du mail//--
+								$mess = sendSupportMail($sujet, $corp, $to);
+								?>
+								<div class="alert alert-success">
+									<center><p>Oppération réussie, un email vous a été envoyé. Veuillez le consulter, puis cliquez sur le lien pour récuperer votre mot de passe.</p><a href="jobs.php">Terminer</a></center>
+								</div>
+								<?php
+							}
+							?>
+						</div>
+						<?php
+					}
+					else{ //mailLink exists
+						$clid = (int) (isset($_GET['none']))?(htmlspecialchars($_GET['none'])):'';
+						$newPwd=substr($nom_site, 0, 3).substr(strtolower(time()), 7, 4);
+						$newPwdHashed = password_hash($newPwd, PASSWORD_DEFAULT);
+						//echo $newPwd;
+						$query=$db->prepare('UPDATE clients SET cl_mdp=:mdp WHERE cl_id=:id');
+						$query->bindValue(':id', $clid, PDO::PARAM_INT);
+						$query->bindValue(':mdp', $newPwdHashed, PDO::PARAM_STR);
+						$query->execute();
+						
+						$count = $query->rowCount();
+						if ($count==0){ //data not inserted
+							erreur("Erreur inconnue, nous sommes navrés <span class='fa fa-frown'></span> Impossible de modifier votre mot de passe.<br><a href='sign-up.php?type=recuperation'><button class='btn btnOrange'>Réprendre</button></a>");
+						}else{
+							?>
+							<div class="alert alert-success">
+								<center>
+									<p>Oppération réussie, Votre mot de passe a été modifiée avec succès !</p>
+									<hr>
+									<p><b>Nouveau mot de passe</b> : <em><?php echo $newPwd ?></em></p>
+								</center>
+							</div>
+							<?php
+						}
+					}
+				}
+				else{ ?>
+					<div class="col-1 col-md-3">
+						<p></p>
+					</div>
+					<div class="col-10 col-md-6" style="padding: 25px;">
+						<div style="border: 1px solid rgba(0,0,0,0.08); border-radius: 25px; padding: 25px; text-align: center;">
+							<form method="post" action="sign-up.php?type=recuperation&form=true">
+								<div class="form-group">
+									<label for="mail">Entrez votre adresse mail</label>
+									<input type="email" class="form-control" id="mail" name="numMail" placeholder="Email ici" required="">
+								</div>
+								<div class="form-group">
+									<button type="submit" class="btn btnBlack btn-block">Récuperer</button>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="col-1 col-md-3">
+						<p></p>
+					</div>
+					<?php
+				} ?>
+			</div>
+		</div>
+		<?php
 	break;
 	default:
 		notFound("Pouffff, quelle galère ......");

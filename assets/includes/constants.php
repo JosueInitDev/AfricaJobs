@@ -4,7 +4,7 @@ $nom_site = "Lambda";
 
 $domaine_extension = ".net";
 
-$domaine = "www.jobs.occaze".$domaine_extension;
+$domaine = "www.job.occaze".$domaine_extension;
 
 $support_teams="";
 

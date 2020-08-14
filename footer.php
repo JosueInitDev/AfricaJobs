@@ -78,10 +78,54 @@
 </style>
 <!-------------//direct chat------------->
 
+<!-------------//cookies----------------->
+<div id="cookiesAlert" style="display:none; position:fixed; bottom:0px; width:100%; background:rgba(0,0,0,0.5); color:#fff; text-align:center; padding: 10px; z-index: 2;">
+	<i>Nous utilisons des cookies afin de vous offrir une expérience utilisateur de qualité. En utilisant nos services, vous acceptez l'utilisation de cookies conformement à nos conditions d'utilisation. <a href="about.php#cookies">En savoir plus</a></i> <button class="btn btnBlack btn-sm" onclick="hideCookiesAlert()"><i>Compris</i></button>
+</div>
+<script>
+	var cookiesAccepted=getCookie("cookiesAccepted");
+	console.log(cookiesAccepted);
+	if (cookiesAccepted != "true"){
+		document.getElementById('cookiesAlert').style.display="block"; //show cookies alert
+	}else{
+		hideCookiesAlert();
+	}
+	
+	function setCookie(cname, cvalue, exdays) {
+	  var d = new Date();
+	  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	  var expires = "expires="+ d.toUTCString();
+	  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/; SameSite=Lax";
+	}
+	
+	function getCookie(cname) {
+	  var name = cname + "=";
+	  var decodedCookie = decodeURIComponent(document.cookie);
+	  var ca = decodedCookie.split(';');
+	  for(var i = 0; i <ca.length; i++) {
+		var c = ca[i];
+		while (c.charAt(0) == ' ') {
+		  c = c.substring(1);
+		}
+		if (c.indexOf(name) == 0) {
+		  return c.substring(name.length, c.length);
+		}
+	  }
+	  return "";
+	}
+	
+	function hideCookiesAlert(){
+		setCookie("cookiesAccepted", "true", 365);
+		document.getElementById('cookiesAlert').style.display="none";
+	}
+</script>
+<!-------------cookies----------------->
+
 <!--------- keep pour later--------------->
 <div class="alert alert-dismissible" style="font-size:20px; position:fixed; top:20vh; left:-100px; display:none; background:#000; z-index:999;" id="keepLater"><p id="successText" style="color:#fff"></p></div>
 <script>
 	//--------------read clients compte ids gardés for later in cookies----------------
+	/****************
 	let x=document.cookie;
 	x=x.split("; ");
 	let elt;
@@ -97,6 +141,7 @@
 		}
 		//console.log(elt==NaN);
 	}
+	**************/
 	//console.log(keepLaterIds);
 //	console.log(x);
 //	x.forEach(function(item, index){
@@ -104,8 +149,8 @@
 //	});
 	//--------------//read clients compte ids gardés for later in cookies----------------
 	function keepForLater(clid){
-		document.cookie = "keep"+clid.toString()+"="+clid;
-		showSuccess("Ajouté à vos \"Garder pour plus tard\"");
+		document.cookie = "keep" + clid.toString() + "=" + clid + ";SameSite=Lax";
+		showSuccess("Ajouté à vos \"Garder pour plus tard\" dans votre compte.");
 	}
 	function showSuccess(mess){
 		document.getElementById('successText').textContent=mess;
@@ -456,97 +501,6 @@ else if (isset($_GET['connected'])){
 }
 /*----//belt dropdown notification-----*/
 	
-/*-----princing-------*/
-.pricingTable{
-    font-family: 'Lato', sans-serif;
-    text-align: center;
-    margin: 0 10px;
-    border-radius: 40px 40px 170px 170px / 40px 40px 70px 70px;
-    overflow: hidden;
-    transition: all 0.3s ease 0s;
-}
-.pricingTable:hover{ box-shadow: 0 0 20px -5px rgba(0,0,0, 0.9); }
-.pricingTable .pricingTable-header{
-    background: #e7e8ea;
-    padding: 25px 0 0;
-}
-.pricingTable .price-value{
-    color: #86878B;
-    font-weight: 900;
-    margin: 0 0 15px;
-}
-.pricingTable .price-value .amount{
-    font-size: 45px;
-    line-height: 40px;
-    display: block;
-}
-.pricingTable .price-value .duration{
-    font-size: 16px;
-    font-weight: 600;
-    text-transform: uppercase;
-    display: block;
-}
-.pricingTable .title{
-    color: #fff;
-    background: #f76b0e;
-    font-size: 33px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    padding: 18px 10px 15px;
-    margin: 0 -8px;
-    border: 8px solid #fff;
-    border-bottom: none;
-    border-radius: 170px 170px 0 0 / 70px 70px 0 0;
-}
-.pricingTable .content-list{
-    background: #E7E8EA;
-    padding: 0;
-    margin: 0;
-    list-style: none;
-}
-.pricingTable .content-list li{
-    color: #86878B;
-    font-size: 16px;
-    font-weight: 600;
-    text-transform: uppercase;
-    padding: 12px 5px;
-}
-.pricingTable .content-list li:nth-child(even){ background: #D1D2D4; }
-.pricingTable .content-list li:last-child{ margin-bottom: 0; }
-.pricingTable .pricingTable-signup{
-    background: #f76b0e;
-    padding: 17px 20px 23px;
-}
-.pricingTable .pricingTable-signup a{
-    color: #fff;
-    font-size: 27px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: all 0.3s ease 0s;
-}
-.pricingTable .pricingTable-signup a:hover{
-    font-weight: 900;
-    letter-spacing: 2px;
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
-}
-.pricingTable.blue .title,
-.pricingTable.blue .pricingTable-signup{
-    background: #3867d6;
-}
-.pricingTable.black .title,
-.pricingTable.black .pricingTable-signup{
-    background: #000000;
-}
-.pricingTable.green .title,
-.pricingTable.green .pricingTable-signup{
-    background: #0fb9b1;
-}
-@media only screen and (max-width: 990px){
-    .pricingTable{ margin-bottom: 30px; }
-}
-/*-----//princing-------*/
 /*-this code is created by Josué - jose.init.dev@gmail.com-*/
 /*---------- scrollbar ------------*/
 ::-webkit-scrollbar {

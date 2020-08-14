@@ -99,6 +99,13 @@ switch($type){
 												<span class="back">Chats</span>
 											</span>
 										</a></li>
+										<li><a href="compte.php?option=kept" class="three-d" onclick="account('kept')" title="Garder pour plus tard">
+											+
+											<span aria-hidden="true" class="three-d-box">
+												<span class="front"><i class="fa fa-plus"></i></span>
+												<span class="back"><i class="fa fa-plus"></i></span>
+											</span>
+										</a></li>
 										<li><a href="#" class="three-d" onclick="account('accueil')">
 												<span class="fas fa-angle-double-left"></span>
 										</a></li>
@@ -511,12 +518,91 @@ switch($type){
 											</div>
 										</div>
 										<!------//this is chats content---------->
+										<!-------garder pour plus tard----------->
+										<div id="kept" style="display:none">
+											<div class="row">
+												<div class="col-12">
+													<h3>Gardés pour plus tard</h3>
+													<p><i>Liste des élements gardés pour plus tard</i></p>
+													<hr>
+													<?php
+													if (!isset($_GET['ids']) and $option=='kept'){ ?>
+													<script>
+														//--------------read clients compte ids gardés for later in cookies----------------
+														let x=document.cookie;
+														x=x.split("; ");
+														let elt;
+														let keepLaterIds=[];
+														for (let i=0; i<x.length; i++){
+															let elt=x[i].substring(x[i].length-1,x[i].length);
+															//if (typeof parseInt(elt) === "number"){
+															//	console.log(parseInt(elt));
+															//	console.log(elt);
+															//}
+															if (!keepLaterIds.includes(parseInt(elt))){
+																keepLaterIds.push(parseInt(elt));
+															}
+															//console.log(elt==NaN);
+														}
+														//console.log(keepLaterIds);
+														window.location.href="compte.php?option=kept&ids="+keepLaterIds;
+														//--------------//read clients compte ids gardés for later in cookies----------------
+													</script>
+												</div>
+												<div class="col-12">
+													<div class="row">
+													<?php }
+													$ids=(isset($_GET['ids']))?(htmlspecialchars($_GET['ids'])):'';
+													//echo $ids;
+													$ids=explode(',', $ids);
+													//print_r($ids);
+													for ($i=count($ids)-1; $i>=0; $i--){
+														$id=$ids[$i];
+														$query=$db->prepare('SELECT * FROM clients WHERE cl_id=:d');
+														$query->bindValue(':d', $id, PDO::PARAM_INT);
+														$query->execute();
+														$data=$query->fetch();
+														if ($data['cl_id']){ //if data exists, we display
+														?>
+														<div class="col-6 col-md-4">
+														<section class="w3l-ecommerce-main">
+															<div class="ecom-products-grids" id="main">
+																<div class="product-grid2 transmitv">
+																	<div class="product-image2" style="border:1px solid #e3e3e3; border-radius:7px; height:110px;">
+																		<a>
+																			<img class="pic-1 img-fluid" src="assets/images/clients/<?php echo $data['cl_photo'] ?>">
+																			<img class="pic-2 img-fluid" src="assets/images/clients/<?php echo $data['cl_photo'] ?>" style="width:150%" title="<?php echo $data['cl_description'] ?>">
+																		</a>
+																		<ul class="social">
+																			<li><a href="user-infos.php?cl=<?php echo $data['cl_id'] ?>" data-tip="Quick View" title="Voir les détails du profile"><span class="fa fa-eye"></span></a></li>
+																		</ul>
+																	</div>
+																	<div class="product-content" style="border:1px solid #e3e3e3; border-radius:0px 0px 7px 7px; border-top:0px;">
+																		<?php if (strlen($data['cl_nom'])<=18) echo '<h3 class="title"><a href="user-infos.php?cl='.$data['cl_id'].'">'.$data['cl_nom'].'</a></h3>';
+																		else echo '<h3 class="title"><a href="user-infos.php?cl='.$data['cl_id'].'">'.substr($data['cl_nom'],0,18).'...</a></h3>'; ?>
+
+																		<?php if ($data['cl_diplome']=='sans_diplome') echo '<i class="price" style="font-size:12px"><span class="fa fa-graduation-cap"></span> Sans Diplôme</i>';
+																		else echo '<i class="price" style="font-size:12px"><span class="fa fa-graduation-cap"></span> '.substr($data['cl_niveau'],0,30).'</i>'; ?>
+																	</div>
+																</div>
+															</div>
+														</section>
+														</div>
+														<?php
+														}
+													}
+													?>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-------//garder pour plus tard----------->
 										
 										<div class="loader" id="compteSpinner"></div>
 									</div>
 									
 									<script>
-										let elts=['accueil', 'infos', 'profile', 'entreprise', 'candidatures', 'chats'];
+										let elts=['accueil', 'infos', 'profile', 'entreprise', 'candidatures', 'chats', 'kept'];
 										function account(elt){
 											document.getElementById('compteSpinner').style.display='block';
 											

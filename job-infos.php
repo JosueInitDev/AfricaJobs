@@ -394,12 +394,8 @@
 							//echo $cv;
 							//---------------send smtp mail au récruteur et à celui qui a postuler----------
 							/*
-							ini_set("include_path", '/home6/occazen/php:' . ini_get("include_path") );
-							require_once "Mail.php";
-							
-							$subjectmail=$nom_site." : ".data['jb_titre'];
-//------
-$corpsmail= 'Nouvelle candidature pour le job sur '.$nom_site.'.
+							$sujet=$nom_site." : ".data['jb_titre'];
+$corp='Nouvelle candidature pour le job sur '.$nom_site.'.
 
 Infos du postulant :
 Nom : '.$nom.'
@@ -412,30 +408,8 @@ Pour plus de détails, veuillez vous rendre dans votre compte section candidatur
 
 A bientôt !
 L\'équipe de '.$nom_site;
-//------
-							$from = $nom_site." <contact@jobs.occaze.net>";
 							$to = "<".$mail.",".$mailRecru.">";
-							$subject = $subjectmail;
-							$body = $corpsmail;
-							$host = "ssl://mail.occaze.net";
-							$port = "465";
-							$username = "contact@jobs.occaze.net";
-							$password = "password here";
-							$headers = array ('From' => $from,
-							  'To' => $to, 
-							  'Subject' => $subject);
-							$smtp = Mail::factory('smtp',
-							  array ('host' => $host,
-							 'port' => $port,
-							 'auth' => true,
-							 'username' => $username,
-							 'password' => $password));
-							$mail = $smtp->send($to, $headers, $body);
-							if (PEAR::isError($mail)) {
-							  	$message = $mail->getMessage();
-							 } else {
-							  	$message = "Mail envoyé avec succèss !";
-							 }
+							$mess = sendSupportMail($sujet, $corp, $to);
 							*/
 							//---------------//send smtp mail au récruteur et à celui qui a postuler----------
 							?>
