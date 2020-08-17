@@ -95,6 +95,11 @@ include('top.php');
 							</div>
 							<button type="submit" class="submit-login btn mb-4">Créer mon compte</button>
 						  </form>
+							<div class="list-inline-item button-log usernhy">
+								<a class="btn-open" href="#" style="color:orange;">
+								  <span aria-hidden="true" title="Connectez-vous à votre compte">J'ai déjà un compte</span>
+								</a>
+							</div>
 						</div>
 					  </div>
 					  <?php }else{ //connected ?>

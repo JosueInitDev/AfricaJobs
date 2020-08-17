@@ -9,7 +9,7 @@ $code = (int) $code;
 include('identifiants.php');
 $cl=$_POST['clid'];
 $mess=$_POST['mess'];
-echo $cl.' '.$mess;
+//echo $cl.' '.$mess;
 //this code is created by Josué - jose.init.dev@gmail.com
 $query=$db->prepare('INSERT INTO chats(cl_id, ch_message, ch_code, ch_date) VALUES(:cl, :m, :co, :d)');
 $query->bindValue(':cl', $cl, PDO::PARAM_INT);

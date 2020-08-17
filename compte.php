@@ -57,6 +57,28 @@ switch($type){
 											<i>Dernière connection : <?php echo duree($data['cl_derniere_co']) ?></i>
 											
 											<a href='compte.php?type=deco'><button class="btn btnOrange btn-sm"><i class="fa fa-sign-in"></i> déconnexion</button></a>
+											<br>
+											<h5>PARRAINAGE</h5>
+												<!-- Facebook -->
+											<a href="http://www.facebook.com/sharer.php?u=<?php echo $lien ?>" target="_blank">
+												<img src="assets/images/facebook.png" alt="Facebook" title="Partager sur facebook" class="rounded-circle" style="width:30px">
+											</a>
+												<!-- Twitter -->
+											<a href="https://twitter.com/share?url=<?php echo $lien ?>&amp;text=Avoir%20un%20job%20maintenant&amp;hashtags=<?php echo $nom_site ?>" target="_blank">
+												<img src="assets/images/twitter.png" alt="Twitter" title="Partager sur twitter" class="rounded-circle" style="width:35px">
+											</a>
+												<!-- whatsapp -->
+											<a href="whatsapp://send?text=Avoir%20un%20job%20maintenant" target="_blank">
+												<img src="assets/images/whatsapp.png" alt="Whatsapp" title="Partager sur whatsapp" class="rounded-circle" style="width:40px">
+											</a>
+												<!-- Email -->
+											<a href="mailto:?Subject=Avoir un job maintenant&amp;Body=Trouvez%20le%20job%20ou%20employé%20de%20votre%20rêve!%20 <?php echo $lien ?>">
+												<img src="assets/images/gmail.png" alt="Email" title="Partager par email" class="rounded-circle" style="width:35px">
+											</a>
+												<!-- LinkedIn -->
+											<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=<?php echo $lien ?>" target="_blank">
+												<img src="assets/images/linkedin.png" alt="LinkedIn" title="Partager sur linkedIn" class="rounded-circle" style="width:30px">
+											</a>
 										</div>
 									</div>
 								</div>
@@ -174,7 +196,38 @@ switch($type){
 												}
 												?>
 											</div>
-
+											<!----------------parrainage---------------->
+											<?php
+											$lien = "https://".$domaine."/sign-up.php?code=5535ef&pad=sg&pr=".$data['cl_parrain_code']."&cvalue=35d";
+											?>
+											<h3>Parrainage <a href="compte.php?type=parrainage"><button class="btn btnBlack btn-sm">voir plus</button></a></h3>
+											<p>Partager le lien et débloquez les premiums. Cliquez pour partager.</p>
+												<!-- Facebook -->
+											<a href="http://www.facebook.com/sharer.php?u=<?php echo $lien ?>" target="_blank">
+												<img src="assets/images/facebook.png" alt="Facebook" title="Partager sur facebook" class="rounded-circle" style="width:40px">
+											</a>
+												<!-- Twitter -->
+											<a href="https://twitter.com/share?url=<?php echo $lien ?>&amp;text=Avoir%20un%20job%20maintenant&amp;hashtags=<?php echo $nom_site ?>" target="_blank">
+												<img src="assets/images/twitter.png" alt="Twitter" title="Partager sur twitter" class="rounded-circle" style="width:45px">
+											</a>
+												<!-- whatsapp -->
+											<a href="whatsapp://send?text=Avoir%20un%20job%20maintenant" target="_blank">
+												<img src="assets/images/whatsapp.png" alt="Whatsapp" title="Partager sur whatsapp" class="rounded-circle" style="width:50px">
+											</a>
+												<!-- Email -->
+											<a href="mailto:?Subject=Avoir un job maintenant&amp;Body=Trouvez%20le%20job%20ou%20employé%20de%20votre%20rêve!%20 <?php echo $lien ?>">
+												<img src="assets/images/gmail.png" alt="Email" title="Partager par email" class="rounded-circle" style="width:45px">
+											</a>
+												<!-- LinkedIn -->
+											<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=<?php echo $lien ?>" target="_blank">
+												<img src="assets/images/linkedin.png" alt="LinkedIn" title="Partager sur linkedIn" class="rounded-circle" style="width:40px">
+											</a>
+											<?php if ($data['cl_parrain_points']>=5){ ?>
+												<p><b>MES POINTS</b> : <?php echo $data['cl_parrain_points'] ?> pts <a href="contact.php#form"><button class="btn btnBlack btn-sm">Réclamer</button></a></p>
+											<?php }else{ ?>
+												<p><b>MES POINTS</b> : <?php echo $data['cl_parrain_points'] ?> pts <button type="button" disabled>Réclamer</button></p>
+											<?php } ?>
+											<!----------------//parrainage---------------->
 											<hr>
 											<?php if ($data['cl_type']=='demandeur'){ ?>
 												<p><span class="fa fa-user"></span> <b>Type compte :</b> personnel</p>
@@ -628,6 +681,74 @@ switch($type){
 					</div>
 					<div class="profile-content">
 						
+					</div>
+				</div>
+			</div>
+		</div>
+		<?php
+	break;
+		
+	case 'parrainage':
+		?>
+		<div class="container">
+			<div class="row" style="margin-top:5vw; margin-bottom:5vw;">
+				<div class="col-12" style="border-style:inset; border-radius:25px 0px 25px 0px; padding:25px;">
+					<center><h1><span class="fas fa-grin-hearts"></span> Parrain<span style="color:darkorange">age</span> <span class="fas fa-grin-hearts"></span></h1></center>
+					<hr>
+					<p><b>PARRAINAGE</b><br>Vous gagnez si votre lien de parrain est utilisé pour créer un compte. 5 parrainage débloquent le <a href="go-premium.php">Premium Standard</a>.</p>
+					<?php if ($data['cl_parrain_points']>=5){ ?>
+						<p><b>MES POINTS</b> : <?php echo $data['cl_parrain_points'] ?> pts <a href="contact.php#form"><button class="btn btnBlack btn-sm">Réclamer</button></a></p>
+					<?php }else{ ?>
+						<p><b>MES POINTS</b> : <?php echo $data['cl_parrain_points'] ?> pts <button type="button" disabled>Réclamer</button></p>
+					<?php } ?>
+					<div class="row">
+						<div class="col-sm-6" style="padding:10px">
+							<p><b>PARTAGER MON LIEN</b></p>
+							<?php
+							$lien = "https://".$domaine."/sign-up.php?code=5535ef&pad=sg&pr=".$data['cl_parrain_code']."&cvalue=35d";
+							?>
+							<input type="text" id="link" style="background:silver; border-radius:3px; padding:5px; width:90%" value="<?php echo $lien ?>"><button onclick="myCopy()"><i class="fa fa-copy"></i></button>
+							<hr>
+							<p><i>Cliquez pour partager votre lien de parrainage maintenant</i></p>
+							    <!-- Facebook -->
+							<a href="http://www.facebook.com/sharer.php?u=<?php echo $lien ?>" target="_blank">
+								<img src="assets/images/facebook.png" alt="Facebook" title="Partager sur facebook" class="rounded-circle" style="width:50px">
+							</a>
+							    <!-- Twitter -->
+							<a href="https://twitter.com/share?url=<?php echo $lien ?>&amp;text=Avoir%20un%20job%20maintenant&amp;hashtags=<?php echo $nom_site ?>" target="_blank">
+								<img src="assets/images/twitter.png" alt="Twitter" title="Partager sur twitter" class="rounded-circle" style="width:50px">
+							</a>
+							    <!-- whatsapp -->
+							<a href="whatsapp://send?text=Avoir%20un%20job%20maintenant" target="_blank">
+								<img src="assets/images/whatsapp.png" alt="Whatsapp" title="Partager sur whatsapp" class="rounded-circle" style="width:50px">
+							</a>
+							    <!-- Email -->
+							<a href="mailto:?Subject=Avoir un job maintenant&amp;Body=Trouvez%20le%20job%20ou%20employé%20de%20votre%20rêve!%20 <?php echo $lien ?>">
+								<img src="assets/images/gmail.png" alt="Email" title="Partager par email" class="rounded-circle" style="width:50px">
+							</a>
+							    <!-- LinkedIn -->
+							<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=<?php echo $lien ?>" target="_blank">
+								<img src="assets/images/linkedin.png" alt="LinkedIn" title="Partager sur linkedIn" class="rounded-circle" style="width:50px">
+							</a>
+							
+							<script>
+								function myCopy() {
+								  var copyText = document.getElementById("link");
+								  copyText.select();
+								  copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+								  document.execCommand("copy"); /* Copy the text inside the text field */
+								  //alert("Copied the text: " + copyText.value);
+								}
+							</script>
+						</div>
+						<div class="col-sm-6" style="padding:10px">
+							<p><b>LES RECOMPENSES</b></p>
+							<ol>
+								<li><b>5 pts</b> <i class='fa fa-hand-o-right'> Premium Standard</i></li>
+								<li><b>15 pts</b> <i class='fa fa-hand-o-right'> Premium Business</i></li>
+								<li><b>25 pts</b> <i class='fa fa-hand-o-right'> Premium Boss Pro</i></li>
+							</ol>
+						</div>
 					</div>
 				</div>
 			</div>

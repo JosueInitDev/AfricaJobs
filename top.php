@@ -33,7 +33,7 @@ if (isset($_SESSION['cl_id']) and isset($_SESSION['cl_nom'])){
         }
         ?>
 		<!-- metas -->
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf8mb4" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="keywords" content="<?php echo $nom_site ?>, trouver job en côte d'ivoire, chercher travail ci, devenir taximan en ci, devenir couturier en ci, comment travail sans diplôme en côte d'ivoire, travail sans diplôme en ci, travail avec diplôme en ci, embaucher pour son entreprise, vendeur de garba en ci, job ci, emploi ci, côte d'ivoire jobs, recherche d'emploi, abidjan jobs, offres d'emploi en côte d'ivoire, emplois, recrutement côte d'ivoire, jobs de vacance en côte d'ivoire" />
 		<!-- //metas -->

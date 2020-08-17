@@ -32,6 +32,10 @@ $option=(isset($_GET['option']))?(htmlspecialchars($_GET['option'])):'nouveau';
 if ($cl_id>0 and !isset($_SESSION['enCours'])){ //user connected & no création de compte en cours
 	?><script>window.location.href="compte.php";</script><?php
 }else{ //start else
+	if (isset($_GET['pr'])){
+		$pr=htmlspecialchars($_GET['pr']);
+		$_SESSION['parrCode'] = $pr;
+	}
 switch($type){
 	case 'nouveau': //new account
 		switch($option){
@@ -451,6 +455,7 @@ switch($type){
 					}
 					//echo $diplomeNom.' '.$niveauPays.' '.$expeVille.' '.$descEn;
 					//echo $_SESSION['userRole'];
+					$codeParrainage=time();
 					$dataOk=false; //will let us savoir si le compte is created or not
 					if ($_SESSION['userRole']=="demandeur"){
 						//user account
@@ -461,7 +466,7 @@ switch($type){
 							$cJob=0;
 						}
 						
-						$query=$db->prepare('INSERT INTO clients(cl_nom, cl_telephone, cl_mail, cl_mdp, cl_type, cl_cherche_job, cl_diplome, cl_niveau, cl_experience, cl_description, cl_derniere_co, cl_date) VALUES(:nom, :tel, :mail, :mdp, :type, :cJob, :dipl, :niv, :expe, :desc, :derCo, :date)');
+						$query=$db->prepare('INSERT INTO clients(cl_nom, cl_telephone, cl_mail, cl_mdp, cl_type, cl_cherche_job, cl_diplome, cl_niveau, cl_experience, cl_description, cl_parrain_code, cl_derniere_co, cl_date) VALUES(:nom, :tel, :mail, :mdp, :type, :cJob, :dipl, :niv, :expe, :desc, :parr, :derCo, :date)');
 						$query->bindValue(':nom', $_SESSION['userNom'], PDO::PARAM_STR);
 						$query->bindValue(':tel', $_SESSION['userTel'], PDO::PARAM_INT);
 						$query->bindValue(':mail', $_SESSION['userMail'], PDO::PARAM_STR);
@@ -472,6 +477,7 @@ switch($type){
 						$query->bindValue(':niv', $niveauPays, PDO::PARAM_STR);
 						$query->bindValue(':expe', $expeVille, PDO::PARAM_STR);
 						$query->bindValue(':desc', $descEn, PDO::PARAM_STR);
+						$query->bindValue(':parr', $codeParrainage, PDO::PARAM_INT);
 						$query->bindValue(':derCo', date('Y').'-'.date('m').'-'.date('d'), PDO::PARAM_STR);
 						$query->bindValue(':date', date('Y').'-'.date('m').'-'.date('d'), PDO::PARAM_STR);
 						$query->execute();
@@ -491,7 +497,7 @@ switch($type){
 						//company account
 						$mdp = password_hash($_SESSION['userMdp'], PASSWORD_DEFAULT);
 						//------stockage infos client//---------
-						$query=$db->prepare('INSERT INTO clients(cl_nom, cl_telephone, cl_mail, cl_mdp, cl_type, cl_cherche_job, cl_diplome, cl_derniere_co, cl_date) VALUES(:nom, :tel, :mail, :mdp, :type, :cJob, :dipl, :derCo, :date)');
+						$query=$db->prepare('INSERT INTO clients(cl_nom, cl_telephone, cl_mail, cl_mdp, cl_type, cl_cherche_job, cl_diplome, cl_parrain_code, cl_derniere_co, cl_date) VALUES(:nom, :tel, :mail, :mdp, :type, :cJob, :dipl, :parr, :derCo, :date)');
 						$query->bindValue(':nom', $_SESSION['userNom'], PDO::PARAM_STR);
 						$query->bindValue(':tel', $_SESSION['userTel'], PDO::PARAM_INT);
 						$query->bindValue(':mail', $_SESSION['userMail'], PDO::PARAM_STR);
@@ -499,6 +505,7 @@ switch($type){
 						$query->bindValue(':type', $_SESSION['userRole'], PDO::PARAM_STR);
 						$query->bindValue(':cJob', 0, PDO::PARAM_INT);
 						$query->bindValue(':dipl', 'sans_diplome', PDO::PARAM_STR);
+						$query->bindValue(':parr', $codeParrainage, PDO::PARAM_INT);
 						$query->bindValue(':derCo', date('Y').'-'.date('m').'-'.date('d'), PDO::PARAM_STR);
 						$query->bindValue(':date', date('Y').'-'.date('m').'-'.date('d'), PDO::PARAM_STR);
 						$query->execute();
@@ -597,6 +604,15 @@ switch($type){
 			case 'fin':
 				if (isset($_POST['next'])){ //make sure previous step is completed
 //				$_SESSION['newAccount']='true'; //permet d'afficher alert "compte créé"
+				//-------si le new client vient grâce a un code de parrainage---------
+				if (isset($_SESSION['parrCode'])){
+					$parrain=$db->prepare('UPDATE clients SET cl_parrain_points=cl_parrain_points+1 WHERE cl_parrain_code=:parr');
+					$parrain->bindValue(':parr', $_SESSION['parrCode'], PDO::PARAM_INT);
+					$parrain->execute();
+					$parrain->closeCursor();
+					showSuccess('Celui qui vous a invité vient de gagner un point premium');
+				}
+				//-------//si le new client vient grâce a un code de parrainage---------
 				?>
 				<div class="container" style="margin-top:6vw; margin-bottom:6vw;">
 					<div class="row">
